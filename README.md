@@ -1,5 +1,7 @@
 # SeaCertsBlazor
-[![Board Status](https://dev.azure.com/tc-tibo/4dd797bf-468b-4734-809d-7a5d7e801e2d/98f281cb-b20c-4b34-9384-beeaf67bef78/_apis/work/boardbadge/04d8c3b1-ac45-422d-9c05-c39db02d017d)](https://dev.azure.com/tc-tibo/4dd797bf-468b-4734-809d-7a5d7e801e2d/_boards/board/t/98f281cb-b20c-4b34-9384-beeaf67bef78/Microsoft.RequirementCategory/)
+
+[![Board Status](https://dev.azure.com/tc-tibo/4dd797bf-468b-4734-809d-7a5d7e801e2d/98f281cb-b20c-4b34-9384-beeaf67bef78/_apis/work/boardbadge/04d8c3b1-ac45-422d-9c05-c39db02d017d?columnOptions=2&columns=To%20Do,Doing,Done)](https://dev.azure.com/tc-tibo/4dd797bf-468b-4734-809d-7a5d7e801e2d/_boards/board/t/98f281cb-b20c-4b34-9384-beeaf67bef78/Microsoft.RequirementCategory/)
+
 # Introduction 
 TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
 
