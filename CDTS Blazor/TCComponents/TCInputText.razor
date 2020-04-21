@@ -5,10 +5,10 @@
     {
         <label class="form-control-label" for="@Id">@Label</label>
     }
-    <input class="form-control @CssClass.Replace("invalid", "is-invalid")" 
+    <input type="@this.TextInputTypeString()"
+           class="form-control @CssClass.Replace("invalid", "is-invalid")" 
            id="@Id" @bind="@CurrentValue" />
     <div class="invalid-feedback">
         <ValidationMessage For="@ValidationFor" />
     </div>
-    <!--<p>@CssClass</p>-->
 </div>
