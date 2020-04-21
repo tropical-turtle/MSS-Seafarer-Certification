@@ -1,0 +1,22 @@
+﻿@typeparam T
+@inherits TCInputSelectBase<T>
+
+<div class="form-control-wrapper">
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <label class="form-control-label" for="@Id">@Label</label>
+    }
+
+    <select class="form-control @CssClass.Replace("invalid", "is-invalid")"
+            id="@Id" @bind="CurrentValueAsString">
+        @if (ShowDefaultOption)
+        {
+            <option value="0" hidden disabled>- Please Select -</option>
+        }
+        @ChildContent
+    </select>
+
+    <div class="form-control-validation">
+        <ValidationMessage For="@ValidationFor" />
+    </div>
+</div>

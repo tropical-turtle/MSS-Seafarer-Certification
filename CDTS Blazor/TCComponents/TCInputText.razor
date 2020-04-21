@@ -7,7 +7,7 @@
     }
     <input class="form-control @CssClass.Replace("invalid", "is-invalid")" 
            id="@Id" @bind="@CurrentValue" />
-    <div class="form-control-validation">
+    <div class="invalid-feedback">
         <ValidationMessage For="@ValidationFor" />
     </div>
     <!--<p>@CssClass</p>-->

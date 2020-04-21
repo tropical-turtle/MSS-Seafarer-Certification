@@ -40,6 +40,21 @@
                      ValidationFor="@(() => tombstoneInformation.Nationality)" />
     </div>
 
+    <div class="form-group">
+        <TCInputRadio 
+                      Label="English" 
+                      Id="CDN-Language-English"
+                      name="language" 
+                      SelectedValue="Language.ENGLISH" 
+                      @bind-Value="tombstoneInformation.LanguagePreference" />
+        <TCInputRadio 
+                      Label="Français"
+                      Id="CDN-Language-French"
+                      name="language" 
+                      SelectedValue="Language.FRENCH" 
+                      @bind-Value="tombstoneInformation.LanguagePreference" />
+    </div>
+
     <button class="btn btn-primary" type="submit">Submit</button>
 
 </EditForm>
@@ -63,18 +78,21 @@
         public string Surname { get; set; }
 
         [Required]
+        [Display(Name = "Given Name(s)")]
         public string GivenName { get; set; }
 
         [Required]
         public string Initials { get; set; }
 
         [Required]
+        [Display(Name = "Date of Birth")]
         public string DateOfBirth { get; set; }
 
         [Required]
         public string Nationality { get; set; }
 
         [Required]
+        [Display(Name = "Language")]
         public Language LanguagePreference { get; set; }
     }
 }
