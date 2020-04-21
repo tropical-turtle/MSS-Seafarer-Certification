@@ -1,0 +1,5 @@
+﻿@typeparam T
+@inherits TCInputRadioBase<T>
+
+<input @attributes="AdditionalAttributes" type="radio" value="@SelectedValue"
+       checked="@(SelectedValue.Equals(Value))" @onchange="OnChange" />

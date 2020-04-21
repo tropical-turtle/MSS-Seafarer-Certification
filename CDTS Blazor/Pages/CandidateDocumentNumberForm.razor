@@ -41,12 +41,14 @@
     </div>
 
     <div class="form-group">
-        <TCInputSelect @bind-Value="tombstoneInformation.LanguagePreference"
-                        ValidationFor="@(() => tombstoneInformation.LanguagePreference)"
-                        Label="Language">
-            <option value="@Language.ENGLISH">English</option>
-            <option value="@Language.FRENCH">Français</option>
-        </TCInputSelect>
+        <label>
+            <TCInputRadio name="language" SelectedValue="Language.ENGLISH" @bind-Value="tombstoneInformation.LanguagePreference" />
+            English
+        </label>
+        <label>
+            <TCInputRadio name="language" SelectedValue="Language.FRENCH" @bind-Value="tombstoneInformation.LanguagePreference" />
+            Français
+        </label>
     </div>
 
     <button class="btn btn-primary" type="submit">Submit</button>
