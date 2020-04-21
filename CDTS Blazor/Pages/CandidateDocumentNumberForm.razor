@@ -6,26 +6,6 @@
 
 <h1>APPLICATION FOR CANDIDATE DOCUMENT NUMBER (CDN)</h1>
 
-<nav aria-label="progress" class="step-indicator">
-    <ul class="steps">
-        <li class="active" aria-current="true">
-            <a href="/">Information</a><span class="sr-only">completed</span>
-        </li>
-        <li>
-            <a href="/cdnform">Applicant Details</a><span class="sr-only">not completed</span>
-        </li>
-        <li>
-            <a href="/address">Mailing Address</a><span class="sr-only">not completed</span>
-        </li>
-        <li>
-            <a href="#">Documents to Confirm the Identity</a><span class="sr-only">not completed</span>
-        </li>
-        <li>
-            <a href="#">Remarks and Signature</a><span class="sr-only">not completed</span>
-        </li>
-    </ul>
-</nav>
-
 <EditForm Model="@tombstoneInformation" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
 
