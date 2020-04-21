@@ -1,12 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using System;
 using System.Globalization;
+using System.Linq.Expressions;
 
 namespace CDTS_Blazor.TCComponents
 {
     public class TCInputRadioBase<T> : InputBase<T>
     {
         [Parameter] public T SelectedValue { get; set; }
+        [Parameter] public string Id { get; set; }
+        [Parameter] public string Label { get; set; }
+        [Parameter] public Expression<Func<T>> ValidationFor { get; set; }
 
         protected void OnChange(ChangeEventArgs args)
         {

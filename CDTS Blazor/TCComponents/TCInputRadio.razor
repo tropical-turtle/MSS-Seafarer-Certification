@@ -1,5 +1,13 @@
 ﻿@typeparam T
 @inherits TCInputRadioBase<T>
 
-<input @attributes="AdditionalAttributes" type="radio" value="@SelectedValue"
-       checked="@(SelectedValue.Equals(Value))" @onchange="OnChange" />
+    <div class="custom-control custom-radio">
+        <input @attributes="AdditionalAttributes"
+               id="@Id"
+               class="custom-control-input @CssClass.Replace("invalid", "is-invalid")"
+               type="radio"
+               value="@SelectedValue"
+               checked="@(SelectedValue.Equals(Value))"
+               @onchange="OnChange" />
+        <label class="custom-control-label" for="@Id">@Label</label>
+    </div>

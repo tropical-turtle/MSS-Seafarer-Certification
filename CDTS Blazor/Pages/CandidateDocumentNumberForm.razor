@@ -41,14 +41,18 @@
     </div>
 
     <div class="form-group">
-        <label>
-            <TCInputRadio name="language" SelectedValue="Language.ENGLISH" @bind-Value="tombstoneInformation.LanguagePreference" />
-            English
-        </label>
-        <label>
-            <TCInputRadio name="language" SelectedValue="Language.FRENCH" @bind-Value="tombstoneInformation.LanguagePreference" />
-            Français
-        </label>
+        <TCInputRadio 
+                      Label="English" 
+                      Id="CDN-Language-English"
+                      name="language" 
+                      SelectedValue="Language.ENGLISH" 
+                      @bind-Value="tombstoneInformation.LanguagePreference" />
+        <TCInputRadio 
+                      Label="Français"
+                      Id="CDN-Language-French"
+                      name="language" 
+                      SelectedValue="Language.FRENCH" 
+                      @bind-Value="tombstoneInformation.LanguagePreference" />
     </div>
 
     <button class="btn btn-primary" type="submit">Submit</button>
