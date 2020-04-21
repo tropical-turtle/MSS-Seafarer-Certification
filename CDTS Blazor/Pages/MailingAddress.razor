@@ -1,0 +1,18 @@
+﻿@page "/address"
+@using Data.Entity
+
+<h3>MailingAddress</h3>
+
+<EditForm Model="@mailingAddress" OnValidSubmit="HandleValidSubmit">
+
+
+</EditForm>
+
+@code {
+    private Address mailingAddress = new Address();
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+}
