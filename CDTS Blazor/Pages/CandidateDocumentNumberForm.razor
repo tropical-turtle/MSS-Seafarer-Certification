@@ -4,6 +4,8 @@
 @using Data;
 @using CDTS_Blazor.TCComponents;
 
+@inject NavigationManager navigationManger
+
 <nav aria-label="progress" class="step-indicator">
     <ul class="steps">
         <li class="active" aria-current="true">
@@ -70,8 +72,8 @@
                       @bind-Value="tombstoneInformation.LanguagePreference" />
     </div>
 
-    <button class="btn btn-primary" type="submit">Submit</button>
-
+    <button class="btn btn-primary" type="submit">Next</button>
+    <button class="btn btn-secondary" type="button">Cancel</button>
 </EditForm>
 
 @code {
@@ -80,6 +82,7 @@
     private void HandleValidSubmit()
     {
         Console.WriteLine("OnValidSubmit");
+        navigationManger.NavigateTo($"{navigationManger.BaseUri}/mailingaddress");
     }
 
     public class TombstoneInformation
