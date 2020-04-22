@@ -1,28 +1,24 @@
-﻿@page "/address"
-@using Data.Entity
+﻿@page "/mailingaddress"
+@using Data
 
+<nav aria-label="progress" class="step-indicator">
+    <ul class="steps">
+        <li class="complete">
+            <a href="/cdnform">@Constants.ProgressBarText1</a><span class="sr-only">completed</span>
+        </li>
+        <li class="active" aria-current="true">
+            @Constants.ProgressBarText2 
+        </li>
+        <li>
+            @Constants.ProgressBarText3<span class="sr-only">not completed</span>
+        </li>
+        <li>
+            @Constants.ProgressBarText4<span class="sr-only">not completed</span>
+        </li>
+    </ul>
+</nav>
 
-@*<nav aria-label="progress" class="step-indicator">
-        <ul class="steps">
-            <li class="active" aria-current="true">
-                <a href="/">Information</a><span class="sr-only">completed</span>
-            </li>
-            <li>
-                <a href="/cdnform">Applicant Details</a><span class="sr-only">not completed</span>
-            </li>
-            <li>
-                <a href="/address">Mailing Address</a><span class="sr-only">not completed</span>
-            </li>
-            <li>
-                <a href="#">Documents to Confirm the Identity</a><span class="sr-only">not completed</span>
-            </li>
-            <li>
-                <a href="#">Remarks and Signature</a><span class="sr-only">not completed</span>
-            </li>
-        </ul>
-    </nav>*@
-
-<h3>MailingAddress</h3>
+<br />
 
 <div class="wb-frmvld">
     <form role="form" method="get" action="/counter">
