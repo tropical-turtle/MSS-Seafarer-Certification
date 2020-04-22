@@ -26,6 +26,7 @@ namespace CDTS_Blazor
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
             services.AddModelAccessor();
+            services.ConfigureGoCTemplateRequestLocalization(); // if GoC.WebTemplate-Components.Core (in NuGet) >= v2.1.1
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +46,7 @@ namespace CDTS_Blazor
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UsePageSettingsMiddleware();
+            app.UseRequestLocalization(); // if GoC.WebTemplate-Components.Core (in NuGet) >= v2.1.1
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
