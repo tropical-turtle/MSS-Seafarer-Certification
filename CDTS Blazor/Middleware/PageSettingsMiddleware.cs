@@ -24,9 +24,9 @@ namespace CDTS_Blazor.Classes
             modelAccessor.Model.DateModified = DateTime.Now.Date;
             modelAccessor.Model.HeaderTitle = "Seafarer Credentials Online Prototype";
             List<Breadcrumb> breadcrumbs = new List<Breadcrumb>();
-            breadcrumbs.Add(new Breadcrumb { Href = "http://www.canada.ca/en/index.html", Title = "canada.ca" });
+            breadcrumbs.Add(new Breadcrumb { Href = "http://www.canada.ca/en/index.html", Title = "Canada.ca" });
             breadcrumbs.Add(new Breadcrumb { Href = "https://www.tc.gc.ca/en/services/marine.html", Title = "Marine Transportation" });
-            breadcrumbs.Add(new Breadcrumb { Href = context.Request.Path.Value, Title = "Seafarer Credentials Online Prototype" });
+            breadcrumbs.Add(new Breadcrumb { Href = "/", Title = "Seafarer Credentials Online Prototype" });
             modelAccessor.Model.Breadcrumbs = breadcrumbs;
             modelAccessor.Model.LeftMenuItems = new List<MenuSection>();
 
