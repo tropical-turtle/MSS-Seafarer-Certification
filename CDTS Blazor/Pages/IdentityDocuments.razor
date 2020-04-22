@@ -1,0 +1,28 @@
+﻿@page "/identitydocuments"
+@using Data
+
+<nav aria-label="progress" class="step-indicator">
+    <ul class="steps">
+        <li class="complete">
+            <a href="/cdnform">@Constants.ProgressBarText1</a><span class="sr-only">completed</span>
+        </li>
+        <li class="=complete">
+            <a href="/mailingaddress">@Constants.ProgressBarText2</a><span class="sr-only">completed</span>
+        </li>
+        <li class="active" aria-current="true">
+            @Constants.ProgressBarText3
+        </li>
+        <li>
+            @Constants.ProgressBarText4<span class="sr-only">not completed</span>
+        </li>
+    </ul>
+</nav>
+
+<br />
+
+<a class="btn btn-primary" href="/signature" role="button">Next</a>
+<a class="btn btn-secondary" href="/" role="button">Cancel</a>
+
+@code {
+
+}
