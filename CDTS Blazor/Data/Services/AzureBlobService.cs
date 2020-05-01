@@ -27,7 +27,7 @@ namespace CDTS_Blazor.Data.Services
 
             // Create the blob to hold the data
             var blob = blobContainer.GetBlockBlobReference(blobName);
-            // Send the file to the cloud
+            // Send the file to the cloud storage
             using(var stream = file.OpenReadStream())
             {
                 await blob.UploadFromStreamAsync(stream);
