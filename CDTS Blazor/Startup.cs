@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using CDTS_Blazor.Data;
 using CDTS_Blazor.Classes;
 using GoC.WebTemplate.Components.Core.Services;
+using CDTS_Blazor.Data.Services;
 
 namespace CDTS_Blazor
 {
@@ -25,6 +26,8 @@ namespace CDTS_Blazor
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<IAzureBlobConnectionFactory, AzureBlobConnectionFactory>();
+            services.AddTransient<IAzureBlobService, AzureBlobService>();
             services.AddModelAccessor();
             services.ConfigureGoCTemplateRequestLocalization(); // if GoC.WebTemplate-Components.Core (in NuGet) >= v2.1.1
         }
