@@ -20,8 +20,21 @@
 
 <br />
 
-<a class="btn btn-primary" href="/signature" role="button">Next</a>
-<a class="btn btn-secondary" href="/" role="button">Cancel</a>
+
+<div class="wb-frmvld">
+    <form role="form" method="get" action="/">
+        <div class="form-group">
+            <label for="ApartmentUnitNumber">Document</label>
+            <input id="Document" type="file" class="form-control" name="filename">
+        </div>
+    </form>
+
+    <a class="btn btn-primary" href="/signature" role="button">Next</a>
+    <a class="btn btn-secondary" href="/" role="button">Cancel</a>
+
+</div>
+
+
 
 @code {
 
