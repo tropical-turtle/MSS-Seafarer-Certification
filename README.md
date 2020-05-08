@@ -18,6 +18,8 @@ The following are managed via NuGet package manager in Visual Studio:
   -https://www.nuget.org/packages/GoC.WebTemplate-Components.Core
   -https://www.nuget.org/packages/Microsoft.Azure.Storage.Blob
   -https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design
+  
+The Target framework is .NET Core 3.1, which is available for download from [Microsoft](https://dotnet.microsoft.com/download/dotnet-core/3.1).
 
 3.	Latest releases
 
