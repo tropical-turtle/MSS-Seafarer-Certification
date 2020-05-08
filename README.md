@@ -3,22 +3,42 @@
 [![Board Status](https://dev.azure.com/tc-tibo/4dd797bf-468b-4734-809d-7a5d7e801e2d/98f281cb-b20c-4b34-9384-beeaf67bef78/_apis/work/boardbadge/04d8c3b1-ac45-422d-9c05-c39db02d017d?columnOptions=2&columns=To%20Do,Doing,Done)](https://dev.azure.com/tc-tibo/4dd797bf-468b-4734-809d-7a5d7e801e2d/_boards/board/t/98f281cb-b20c-4b34-9384-beeaf67bef78/Microsoft.RequirementCategory/)
 
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+
+This is the prototype for TC's Seafarer Credentials Project. It is written in Blazor and is strictly for development purposes. Actual development will be hosted in TC's official Github home.
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
+
 1.	Installation process
+
+To install this project, clone locally, open https://github.com/tc-tibo/SeaCertsBlazor/blob/master/CDTS%20Blazor.sln file in Visual Studio, and then publish to your desired location.
+
 2.	Software dependencies
+
+The following are managed via NuGet package manager in Visual Studio:
+  -https://www.nuget.org/packages/GoC.WebTemplate-Components.Core
+  -https://www.nuget.org/packages/Microsoft.Azure.Storage.Blob
+  -https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design
+
 3.	Latest releases
+
+Releases are continuosly deployed to:
+
+https://seacertsblazor.azurewebsites.net/
+
+Upon commits to master.
+
 4.	API references
 
+None.
+
 # Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+
+The solution can be built from Visual Studio's "Build" menu or from Ctrl+Shift+B from keyboard. There are currently no unit tests.
 
 # Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+Some ideas:
+  - implement localization using CDTS
+  - add test scripts
+  - containerize using Docker
+  - set up AKS
