@@ -10,7 +10,7 @@ This is the prototype for the digital CDN Application Form as part of TC's Seafa
 
 1.	Installation process
 
-To install this project, clone locally, open https://github.com/tc-tibo/SeaCertsBlazor/blob/master/CDTS%20Blazor.sln file in Visual Studio, and then publish to your desired location.
+To run this project locally from VisualStudio 2019, clone repository, open .sln file in Visual Studio, and then choose Debug -> Start Debugging, or F5 on the keyboard.
 
 2.	Software dependencies
 
