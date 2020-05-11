@@ -18,17 +18,17 @@ namespace CDTS_Blazor.Data.Services
             _azureBlobConnectionFactory = azureBlobConnectionFactory;
         }
 
-        public async Task<CloudBlockBlob> UploadFileAsync(IFormFile file, string container)
+        public async Task<CloudBlockBlob> UploadFileAsync(IFormFile file, string container = null)
         {
 
-            var blobContainer = await _azureBlobConnectionFactory.GetBlobContainer();
+            var blobContainer = await _azureBlobConnectionFactory.GetBlobContainer(container);
 
-            var blobName = UnqiueFileName(file.FileName);
+            var blobName = UniqueFileName(file.FileName);
 
             // Create the blob to hold the data
             var blob = blobContainer.GetBlockBlobReference(blobName);
             // Send the file to the cloud storage
-            using(var stream = file.OpenReadStream())
+            using (var stream = file.OpenReadStream())
             {
                 await blob.UploadFromStreamAsync(stream);
             }
@@ -37,7 +37,35 @@ namespace CDTS_Blazor.Data.Services
 
         }
 
-        private string UnqiueFileName(string currentFileName)
+        public async Task<List<CloudBlockBlob>> UploadMultipleFilesAsync(IFormFileCollection files, string container = null)
+
+        {
+
+            // Get the container
+            var blobContainer = await _azureBlobConnectionFactory.GetBlobContainer(container);
+
+            var list = new List<CloudBlockBlob>();
+
+            for (int i = 0; i < files.Count; i++)
+            {
+                // Create the blob to hold the data
+                var blob = blobContainer.GetBlockBlobReference(UniqueFileName(files[i].FileName));
+                // Send the file to the cloud
+                using (var stream = files[i].OpenReadStream())
+                {
+
+                    await blob.UploadFromStreamAsync(stream);
+
+                }
+
+                list.Add(blob);
+
+            }
+
+            return list;
+        }
+
+        private string UniqueFileName(string currentFileName)
         {
             string ext = Path.GetExtension(currentFileName);
 

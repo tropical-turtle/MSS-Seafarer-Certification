@@ -10,7 +10,9 @@ namespace CDTS_Blazor.Data.Services
     public interface IAzureBlobService
     {
 
-        Task<CloudBlockBlob> UploadFileAsync(IFormFile file, string container);
+        Task<CloudBlockBlob> UploadFileAsync(IFormFile file, string container = null);
+
+        Task<List<CloudBlockBlob>> UploadMultipleFilesAsync(IFormFileCollection files, string container = null);
 
     }
 }
