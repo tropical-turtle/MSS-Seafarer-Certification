@@ -8,6 +8,8 @@ This is the prototype for the digital CDN Application Form as part of TC's Seafa
 
 # Getting Started
 
+NB - these instructions are written specifically for getting the project running in Visual Studio 2019 Enterprise Edition on a computer running Windows 10 Enterprise Operating system.
+
 1.	Installation process
 
 To run this project locally from VisualStudio 2019, clone repository, open .sln file in Visual Studio, and then choose Debug -> Start Debugging, or F5 on the keyboard.
