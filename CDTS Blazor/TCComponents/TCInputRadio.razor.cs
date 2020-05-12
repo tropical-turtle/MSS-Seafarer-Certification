@@ -4,7 +4,7 @@ using System;
 using System.Globalization;
 using System.Linq.Expressions;
 
-namespace CDTS_Blazor.TCComponents
+namespace CDNApplication.TCComponents
 {
     public class TCInputRadioBase<T> : InputBase<T>
     {
@@ -15,7 +15,10 @@ namespace CDTS_Blazor.TCComponents
 
         protected void OnChange(ChangeEventArgs args)
         {
-            CurrentValueAsString = args.Value.ToString();
+            if (args != null)
+            {
+                CurrentValueAsString = args.Value.ToString();
+            }
         }
         protected override bool TryParseValueFromString(string value, out T result, out string validationErrorMessage)
         {

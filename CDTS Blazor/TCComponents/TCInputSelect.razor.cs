@@ -4,7 +4,7 @@ using System;
 using System.Globalization;
 using System.Linq.Expressions;
 
-namespace CDTS_Blazor.TCComponents
+namespace CDNApplication.TCComponents
 {
     public class TCInputSelectBase<T> : InputBase<T>
     {

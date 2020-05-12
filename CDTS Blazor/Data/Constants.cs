@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CDTS_Blazor.Data
+namespace CDNApplication.Data
 {
-    public class Constants
+    public static class Constants
     {
         public const string ProgressBarText1 = "Applicant Details";
         public const string ProgressBarText2 = "Mailing Address";

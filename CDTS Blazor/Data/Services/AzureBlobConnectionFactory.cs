@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CDTS_Blazor.Data.Services
+namespace CDNApplication.Data.Services
 {
     public class AzureBlobConnectionFactory : IAzureBlobConnectionFactory
     {
@@ -35,12 +35,12 @@ namespace CDTS_Blazor.Data.Services
                 _cloudBlobContainer = blobClient.GetRootContainerReference();
             }
 
-            if (await _cloudBlobContainer.CreateIfNotExistsAsync())
+            if (await _cloudBlobContainer.CreateIfNotExistsAsync().ConfigureAwait(false))
             {
                 await _cloudBlobContainer.SetPermissionsAsync(new BlobContainerPermissions
                 {
                     PublicAccess = BlobContainerPublicAccessType.Blob
-                });
+                }).ConfigureAwait(false); ;
             }
 
             return _cloudBlobContainer;
@@ -50,7 +50,7 @@ namespace CDTS_Blazor.Data.Services
         {
             if (!CloudStorageAccount.TryParse(connectionString: _connectionString, out CloudStorageAccount cloudStorageAccount))
             {
-                throw new Exception("Wrong connection string");
+                throw new CloudStorageAccountConnectionStringException();
             }
 
             _cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
