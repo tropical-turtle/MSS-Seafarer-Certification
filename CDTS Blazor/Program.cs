@@ -9,9 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace CDTS_Blazor
+namespace CDNApplication
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {

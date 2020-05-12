@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CDTS_Blazor.TCComponents
+namespace CDNApplication.TCComponents
 {
     /// <summary>
     /// Enumeration for languages
@@ -20,7 +20,7 @@ namespace CDTS_Blazor.TCComponents
     {
         DATE,
 
-        DATETIME_LOCAL,
+        DATETIMELOCAL,
 
         EMAIL,
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CDTS_Blazor.Data.Services
+namespace CDNApplication.Data.Services
 {
     public interface IAzureBlobConnectionFactory
     {
