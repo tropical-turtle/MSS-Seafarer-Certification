@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BlazorInputFile;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.Storage.Blob;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace CDTS_Blazor.Data.Services
@@ -35,6 +37,35 @@ namespace CDTS_Blazor.Data.Services
 
             return blob;
 
+        }
+
+        public async Task<List<CloudBlockBlob>> UploadMultipleFilesAsync(IFileListEntry[] files, string container = null)
+        {
+
+            // Get the container
+            var blobContainer = await _azureBlobConnectionFactory.GetBlobContainer(container);
+
+            var list = new List<CloudBlockBlob>();
+
+            for (int i = 0; i < files.Count(); i++)
+            {
+                // Create the blob to hold the data
+                var blob = blobContainer.GetBlockBlobReference(UniqueFileName(files[i].Name));
+                // Send the file to the cloud
+                using (StreamContent streamContent = new StreamContent(files[i].Data))
+                {
+
+                    var stream = await streamContent.ReadAsStreamAsync();
+
+                    await blob.UploadFromStreamAsync(stream);
+
+                }
+
+                list.Add(blob);
+
+            }
+
+            return list;
         }
 
         public async Task<List<CloudBlockBlob>> UploadMultipleFilesAsync(IFormFileCollection files, string container = null)

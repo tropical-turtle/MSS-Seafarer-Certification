@@ -1,5 +1,10 @@
 ﻿@page "/identitydocuments"
-@using Data
+@using Data;
+
+@using CDTS_Blazor.Data.Services;
+@using BlazorInputFile;
+
+@inject IAzureBlobService _azureBlobService;
 
 <nav aria-label="progress" class="step-indicator">
     <ul class="steps">
@@ -20,22 +25,25 @@
 
 <br />
 
-
 <div class="wb-frmvld">
     <form role="form" method="get" action="/">
         <div class="form-group">
-            <label for="ApartmentUnitNumber">Document</label>
-            <input id="Document" type="file" class="form-control" name="filename">
+            <label for="Document">Document</label>
+            <InputFile id="Document" multiple class="form-control" OnChange="HandleFileSelected" />
         </div>
     </form>
 
     <a class="btn btn-primary" href="/signature" role="button">Next</a>
     <a class="btn btn-secondary" href="/" role="button">Cancel</a>
-
 </div>
 
-
-
 @code {
+
+    async void HandleFileSelected(IFileListEntry[] files)
+    {
+        // Upload the file to the root directory
+        var result = await _azureBlobService.UploadMultipleFilesAsync(files);
+
+    }
 
 }
