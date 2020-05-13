@@ -8,10 +8,17 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.Azure.Storage.Blob;
 
+    /// <summary>
+    /// Represents the Azure blob service.
+    /// </summary>
     public class AzureBlobService : IAzureBlobService
     {
         private readonly IAzureBlobConnectionFactory azureBlobConnectionFactory;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AzureBlobService"/> class.
+        /// </summary>
+        /// <param name="azureBlobConnectionFactory">The Azure blobl connection factory.</param>
         public AzureBlobService(IAzureBlobConnectionFactory azureBlobConnectionFactory)
         {
             this.azureBlobConnectionFactory = azureBlobConnectionFactory;

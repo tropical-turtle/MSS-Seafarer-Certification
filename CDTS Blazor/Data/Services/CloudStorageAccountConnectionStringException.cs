@@ -4,7 +4,7 @@
     using CDNApplication.Data.Resources;
 
     /// <summary>
-    /// Defines the cloude storage account connection string exception
+    /// Defines the cloude storage account connection string exception.
     /// </summary>
     public class CloudStorageAccountConnectionStringException : Exception
     {
