@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>CDNApplication</RootNamespace>
-    <AssemblyName>CDNApplicationForm</AssemblyName>
+    <AssemblyName>CDNApplication</AssemblyName>
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
