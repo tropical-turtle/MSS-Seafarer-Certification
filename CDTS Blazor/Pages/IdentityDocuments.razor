@@ -42,7 +42,7 @@
     async void HandleFileSelected(IFileListEntry[] files)
     {
         // Upload the file to the root directory
-        var result = await _azureBlobService.UploadMultipleFilesAsync(files);
+        var result = await _azureBlobService.UploadMultipleFilesAsync(files).ConfigureAwait(false);
 
     }
 
