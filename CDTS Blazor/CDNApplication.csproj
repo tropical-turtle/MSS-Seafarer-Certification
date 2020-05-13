@@ -14,6 +14,8 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DocumentationFile>bin\Release\netcoreapp3.1\CDNApplicationForm.xml</DocumentationFile>
+    <NoWarn>1591;1701;1702</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="GoC.WebTemplate-Components.Core" Version="2.1.2" />
