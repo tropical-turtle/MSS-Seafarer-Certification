@@ -2,7 +2,7 @@
 @using System.ComponentModel.DataAnnotations;
 
 @using Data;
-@using CDTS_Blazor.TCComponents;
+@using CDNApplication.TCComponents;
 
 @inject NavigationManager navigationManger
 
@@ -63,12 +63,12 @@
         <TCInputRadio Label="English"
                       Id="CDN-Language-English"
                       name="language"
-                      SelectedValue="Language.ENGLISH"
+                      SelectedValue="CorrespondenceLanguage.ENGLISH"
                       @bind-Value="tombstoneInformation.LanguagePreference" />
         <TCInputRadio Label="Français"
                       Id="CDN-Language-French"
                       name="language"
-                      SelectedValue="Language.FRENCH"
+                      SelectedValue="CorrespondenceLanguage.FRENCH"
                       @bind-Value="tombstoneInformation.LanguagePreference" />
     </div>
 
@@ -111,6 +111,6 @@
 
         [Required]
         [Display(Name = "Language")]
-        public Language LanguagePreference { get; set; }
+        public CorrespondenceLanguage LanguagePreference { get; set; }
     }
 }

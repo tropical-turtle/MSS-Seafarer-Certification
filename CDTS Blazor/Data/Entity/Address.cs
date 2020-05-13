@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CDTS_Blazor.Data.Entity
+namespace CDNApplication.Data.Entity
 {
     public class Address
     {

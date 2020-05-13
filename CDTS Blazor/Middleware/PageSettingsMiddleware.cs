@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CDTS_Blazor.Classes
+namespace CDNApplication.Middleware
 {
     public class PageSettingsMiddleware
     {
@@ -20,6 +21,10 @@ namespace CDTS_Blazor.Classes
 
         public async Task InvokeAsync(HttpContext context, ModelAccessor modelAccessor)
         {
+            // Perhaps we can fail more gracefully then just throwing an exception
+            if (modelAccessor == null)
+                throw new ArgumentNullException(nameof(modelAccessor));
+
             //add page settings like: Modified Date, Breadcrumbs, Culture, Title etc.
             modelAccessor.Model.DateModified = DateTime.Now.Date;
             modelAccessor.Model.HeaderTitle = "Seafarer Credentials Online Prototype";
@@ -30,7 +35,7 @@ namespace CDTS_Blazor.Classes
             modelAccessor.Model.Breadcrumbs = breadcrumbs;
             modelAccessor.Model.LeftMenuItems = new List<MenuSection>();
 
-            await _next.Invoke(context);
+            await _next.Invoke(context).ConfigureAwait(false);
         }
     }
     public static class PageSettingsMiddlewareExtension

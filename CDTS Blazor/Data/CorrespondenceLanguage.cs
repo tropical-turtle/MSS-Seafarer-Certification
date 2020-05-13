@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CDTS_Blazor.Data
+namespace CDNApplication.Data
 {
     /// <summary>
     /// Enumeration for languages
     /// </summary>
-    public enum Language
+    public enum CorrespondenceLanguage
     {
         /// <summary>
         /// Defines the english language

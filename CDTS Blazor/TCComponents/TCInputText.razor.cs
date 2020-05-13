@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using System;
 using System.Linq.Expressions;
 
-namespace CDTS_Blazor.TCComponents
+namespace CDNApplication.TCComponents
 {
     public class TCInputTextBase : InputBase<string>
     {
@@ -25,7 +25,7 @@ namespace CDTS_Blazor.TCComponents
             {
                 case TextInputType.DATE:
                     return "date";
-                case TextInputType.DATETIME_LOCAL:
+                case TextInputType.DATETIMELOCAL:
                     return "datetime-local";
                 case TextInputType.EMAIL:
                     return "email";

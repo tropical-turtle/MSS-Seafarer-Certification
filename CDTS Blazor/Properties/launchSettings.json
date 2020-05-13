@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "CDTS_Blazor": {
+    "CDNApplication": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
