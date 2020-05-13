@@ -1,13 +1,10 @@
-﻿using GoC.WebTemplate.Components.Core.Services;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using GoC.WebTemplate.Components.Core.Services;
 using GoC.WebTemplate.Components.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Localization;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CDNApplication.Middleware
 {

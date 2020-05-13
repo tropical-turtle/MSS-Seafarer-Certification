@@ -1,10 +1,8 @@
-﻿using BlazorInputFile;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using BlazorInputFile;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Azure.Storage.Blob;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CDNApplication.Data.Services
 {

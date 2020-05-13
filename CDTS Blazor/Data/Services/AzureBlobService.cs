@@ -1,14 +1,12 @@
-﻿using BlazorInputFile;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Azure.Storage.Blob;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using BlazorInputFile;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Azure.Storage.Blob;
 
 namespace CDNApplication.Data.Services
 {
@@ -45,13 +43,16 @@ namespace CDNApplication.Data.Services
 
         public async Task<List<CloudBlockBlob>> UploadMultipleFilesAsync(IFileListEntry[] files, string container = null)
         {
+            // Perhaps we can fail more gracefully then just throwing an exception
+            if (files == null)
+                throw new ArgumentNullException(nameof(files));
 
             // Get the container
-            var blobContainer = await _azureBlobConnectionFactory.GetBlobContainer(container);
+            var blobContainer = await _azureBlobConnectionFactory.GetBlobContainer(container).ConfigureAwait(false);
 
             var list = new List<CloudBlockBlob>();
 
-            for (int i = 0; i < files.Count(); i++)
+            for (int i = 0; i < files.Length; i++)
             {
                 // Create the blob to hold the data
                 var blob = blobContainer.GetBlockBlobReference(UniqueFileName(files[i].Name));
@@ -59,9 +60,9 @@ namespace CDNApplication.Data.Services
                 using (StreamContent streamContent = new StreamContent(files[i].Data))
                 {
 
-                    var stream = await streamContent.ReadAsStreamAsync();
+                    var stream = await streamContent.ReadAsStreamAsync().ConfigureAwait(false);
 
-                    await blob.UploadFromStreamAsync(stream);
+                    await blob.UploadFromStreamAsync(stream).ConfigureAwait(false);
 
                 }
 
