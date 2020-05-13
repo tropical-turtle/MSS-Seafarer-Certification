@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CDNApplication.Data
+﻿namespace CDNApplication.Data
 {
     /// <summary>
-    /// Enumeration for languages
+    /// Enumeration for languages.
     /// </summary>
     public enum CorrespondenceLanguage
     {
@@ -18,6 +13,6 @@ namespace CDNApplication.Data
         /// <summary>
         /// Defines the french language
         /// </summary>
-        FRENCH
+        FRENCH,
     }
 }

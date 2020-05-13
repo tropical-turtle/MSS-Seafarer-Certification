@@ -1,18 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-
 namespace CDNApplication
 {
+    using System.Diagnostics.CodeAnalysis;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Hosting;
+
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Main class of the program doesn't require documentation")]
     public static class Program
     {
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1600:Elements should be documented", Justification = "Main method doesn't require documentation")]
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
