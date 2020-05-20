@@ -1,28 +1,48 @@
-﻿using System;
-using CDNApplication.Data.Resources;
-    
-namespace CDNApplication.Data.Services
+﻿namespace CDNApplication.Data.Services
 {
+    using System;
+    using CDNApplication.Data.Resources;
+
+    /// <summary>
+    /// Defines the cloude storage account connection string exception.
+    /// </summary>
     public class CloudStorageAccountConnectionStringException : Exception
     {
-        private static readonly string errorMessage = ErrorMessages.CloudStorageAccountConnectionStringExceptionErrorMessage;
+        private static readonly string ErrorMessage = ErrorMessages.CloudStorageAccountConnectionStringExceptionErrorMessage;
 
-        public CloudStorageAccountConnectionStringException() : base(errorMessage)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CloudStorageAccountConnectionStringException"/> class.
+        /// </summary>
+        public CloudStorageAccountConnectionStringException()
+            : base(CloudStorageAccountConnectionStringException.ErrorMessage)
         {
-
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CloudStorageAccountConnectionStringException"/> class.
+        /// </summary>
+        /// <param name="innerException">The inner exception.</param>
         public CloudStorageAccountConnectionStringException(Exception innerException)
-            : base(errorMessage, innerException)
-        {
-
-        }
-
-        public CloudStorageAccountConnectionStringException(string message) : base(message)
+            : base(CloudStorageAccountConnectionStringException.ErrorMessage, innerException)
         {
         }
 
-        public CloudStorageAccountConnectionStringException(string message, Exception innerException) : base(message, innerException)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CloudStorageAccountConnectionStringException"/> class.
+        /// </summary>
+        /// <param name="message">The exception message.</param>
+        public CloudStorageAccountConnectionStringException(string message)
+            : base(message)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CloudStorageAccountConnectionStringException"/> class.
+        /// </summary>
+        /// <param name="message">The exception message.</param>
+        /// <param name="innerException">The inner exception.</param>
+        public CloudStorageAccountConnectionStringException(string message, Exception innerException)
+            : base(message, innerException)
         {
         }
     }

@@ -1,62 +1,64 @@
-﻿using Microsoft.Azure.Storage;
-using Microsoft.Azure.Storage.Blob;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CDNApplication.Data.Services
+﻿namespace CDNApplication.Data.Services
 {
+    using System;
+    using System.Threading.Tasks;
+    using Microsoft.Azure.Storage;
+    using Microsoft.Azure.Storage.Blob;
+
+    /// <summary>
+    /// The Azure blob storage connection factor.
+    /// </summary>
     public class AzureBlobConnectionFactory : IAzureBlobConnectionFactory
     {
+        private string connectionString;
 
-        private string _connectionString;
+        private CloudBlobClient cloudBlobClient;
 
-        private CloudBlobClient _cloudBlobClient;
+        private CloudBlobContainer cloudBlobContainer;
 
-        private CloudBlobContainer _cloudBlobContainer;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AzureBlobConnectionFactory"/> class.
+        /// </summary>
         public AzureBlobConnectionFactory()
         {
-            _connectionString = Environment.GetEnvironmentVariable("BlobStorage");
+            this.connectionString = Environment.GetEnvironmentVariable("BlobStorage");
         }
 
+        /// <inheritdoc/>
         public async Task<CloudBlobContainer> GetBlobContainer(string container = null)
         {
-
-            var blobClient = GetClient();
+            var blobClient = this.GetClient();
 
             if (!string.IsNullOrWhiteSpace(container))
             {
-                _cloudBlobContainer = blobClient.GetContainerReference(container);
+                this.cloudBlobContainer = blobClient.GetContainerReference(container);
             }
             else
             {
-                _cloudBlobContainer = blobClient.GetRootContainerReference();
+                this.cloudBlobContainer = blobClient.GetRootContainerReference();
             }
 
-            if (await _cloudBlobContainer.CreateIfNotExistsAsync().ConfigureAwait(false))
+            if (await this.cloudBlobContainer.CreateIfNotExistsAsync().ConfigureAwait(false))
             {
-                await _cloudBlobContainer.SetPermissionsAsync(new BlobContainerPermissions
+                await this.cloudBlobContainer.SetPermissionsAsync(new BlobContainerPermissions
                 {
-                    PublicAccess = BlobContainerPublicAccessType.Blob
-                }).ConfigureAwait(false); ;
+                    PublicAccess = BlobContainerPublicAccessType.Blob,
+                }).ConfigureAwait(false);
             }
 
-            return _cloudBlobContainer;
+            return this.cloudBlobContainer;
         }
 
         private CloudBlobClient GetClient()
         {
-            if (!CloudStorageAccount.TryParse(connectionString: _connectionString, out CloudStorageAccount cloudStorageAccount))
+            if (!CloudStorageAccount.TryParse(connectionString: this.connectionString, out CloudStorageAccount cloudStorageAccount))
             {
                 throw new CloudStorageAccountConnectionStringException();
             }
 
-            _cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+            this.cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
 
-            return _cloudBlobClient;
-
+            return this.cloudBlobClient;
         }
     }
 }

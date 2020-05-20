@@ -1,19 +1,19 @@
 ﻿@page "/signature"
-@using Data
+@using Data.Resources
 
 <nav aria-label="progress" class="step-indicator">
     <ul class="steps">
         <li class="complete">
-            <a href="/cdnform">@Constants.ProgressBarText1</a><span class="sr-only">completed</span>
+            <a href="/cdnform">@labels_en.CDNApplicationProgressApplicantDetails</a><span class="sr-only">completed</span>
         </li>
         <li class="complete">
-            <a href="/mailingaddress">@Constants.ProgressBarText2</a><span class="sr-only">completed</span>
+            <a href="/mailingaddress">@labels_en.CDNApplicationProgressMailingAddress</a><span class="sr-only">completed</span>
         </li>
         <li class="complete">
-            <a href="/identitydocuments">@Constants.ProgressBarText3</a><span class="sr-only">completed</span>
+            <a href="/identitydocuments">@labels_en.CDNApplicationProgressIdentityDocuments</a><span class="sr-only">completed</span>
         </li>
         <li class="active" aria-current="true">
-            @Constants.ProgressBarText4
+            @labels_en.CDNApplicationProgressSignature
         </li>
     </ul>
 </nav>

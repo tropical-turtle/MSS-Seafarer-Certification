@@ -1,19 +1,19 @@
 ﻿@page "/mailingaddress"
-@using Data
+@using Data.Resources
 
 <nav aria-label="progress" class="step-indicator">
     <ul class="steps">
         <li class="complete">
-            <a href="/cdnform">@Constants.ProgressBarText1</a><span class="sr-only">completed</span>
+            <a href="/cdnform">@labels_en.CDNApplicationProgressApplicantDetails</a><span class="sr-only">completed</span>
         </li>
         <li class="active" aria-current="true">
-            @Constants.ProgressBarText2
+            @labels_en.CDNApplicationProgressMailingAddress
         </li>
         <li>
-            @Constants.ProgressBarText3<span class="sr-only">not completed</span>
+            @labels_en.CDNApplicationProgressIdentityDocuments<span class="sr-only">not completed</span>
         </li>
         <li>
-            @Constants.ProgressBarText4<span class="sr-only">not completed</span>
+            @labels_en.CDNApplicationProgressSignature<span class="sr-only">not completed</span>
         </li>
     </ul>
 </nav>
