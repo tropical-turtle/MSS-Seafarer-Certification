@@ -32,16 +32,43 @@
         </div>
     </form>
 
+    @if (completed == 1)
+    {
+        <div class="alert alert-success" role="alert">
+            Files uploaded successfully
+        </div>
+    }
+    else if (completed == 0)
+    {
+        <div class="alert alert-danger" role="alert">
+            Upload was unsucessful
+        </div>
+    }
+
     <a class="btn btn-primary" href="/signature" role="button">Next</a>
     <a class="btn btn-secondary" href="/" role="button">Cancel</a>
 </div>
 
 @code {
 
+    int completed = -1;
+
     async void HandleFileSelected(IFileListEntry[] files)
     {
+
         // Upload the file to the root directory
         var result = await _azureBlobService.UploadMultipleFilesAsync(files).ConfigureAwait(false);
+
+        completed = -1;
+
+        if (result.Count == files.Length)
+        {
+            completed = 1;
+        }
+        else
+        {
+            completed = 0;
+        }
 
     }
 
