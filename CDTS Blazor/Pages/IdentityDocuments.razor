@@ -1,24 +1,23 @@
 ﻿@page "/identitydocuments"
-
-@using CDNApplication.Data;
 @using CDNApplication.Data.Services;
 @using BlazorInputFile;
 
 @inject IAzureBlobService _azureBlobService;
+@using Data.Resources
 
 <nav aria-label="progress" class="step-indicator">
     <ul class="steps">
         <li class="complete">
-            <a href="/cdnform">@Constants.ProgressBarText1</a><span class="sr-only">completed</span>
+            <a href="/cdnform">@labels_en.CDNApplicationProgressApplicantDetails</a><span class="sr-only">completed</span>
         </li>
         <li class="complete">
-            <a href="/mailingaddress">@Constants.ProgressBarText2</a><span class="sr-only">completed</span>
+            <a href="/mailingaddress">@labels_en.CDNApplicationProgressMailingAddress</a><span class="sr-only">completed</span>
         </li>
         <li class="active" aria-current="true">
-            @Constants.ProgressBarText3
+            @labels_en.CDNApplicationProgressIdentityDocuments
         </li>
         <li>
-            @Constants.ProgressBarText4<span class="sr-only">not completed</span>
+            @labels_en.CDNApplicationProgressSignature<span class="sr-only">not completed</span>
         </li>
     </ul>
 </nav>

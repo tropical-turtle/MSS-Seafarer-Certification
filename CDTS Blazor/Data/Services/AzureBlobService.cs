@@ -1,37 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
-using BlazorInputFile;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Azure.Storage.Blob;
-
 namespace CDNApplication.Data.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.IO;
+    using System.Net.Http;
+    using System.Threading.Tasks;
+    using BlazorInputFile;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Azure.Storage.Blob;
+
+    /// <summary>
+    /// Represents the Azure blob service.
+    /// </summary>
     public class AzureBlobService : IAzureBlobService
     {
+        private readonly IAzureBlobConnectionFactory azureBlobConnectionFactory;
 
-        private readonly IAzureBlobConnectionFactory _azureBlobConnectionFactory;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AzureBlobService"/> class.
+        /// </summary>
+        /// <param name="azureBlobConnectionFactory">The Azure blobl connection factory.</param>
         public AzureBlobService(IAzureBlobConnectionFactory azureBlobConnectionFactory)
         {
-            _azureBlobConnectionFactory = azureBlobConnectionFactory;
+            this.azureBlobConnectionFactory = azureBlobConnectionFactory;
         }
 
+        /// <inheritdoc/>
         public async Task<CloudBlockBlob> UploadFileAsync(IFormFile file, string container = null)
         {
             // Perhaps we can fail more gracefully then just throwing an exception
             if (file == null)
+            {
                 throw new ArgumentNullException(nameof(file));
-            
-            var blobContainer = await _azureBlobConnectionFactory.GetBlobContainer().ConfigureAwait(false);
+            }
+
+            var blobContainer = await this.azureBlobConnectionFactory.GetBlobContainer().ConfigureAwait(false);
 
             var blobName = AzureBlobService.UniqueFileName(file.FileName);
 
             // Create the blob to hold the data
             var blob = blobContainer.GetBlockBlobReference(blobName);
+
             // Send the file to the cloud storage
             using (var stream = file.OpenReadStream())
             {
@@ -41,14 +51,17 @@ namespace CDNApplication.Data.Services
             return blob;
         }
 
+        /// <inheritdoc/>
         public async Task<List<CloudBlockBlob>> UploadMultipleFilesAsync(IFileListEntry[] files, string container = null)
         {
             // Perhaps we can fail more gracefully then just throwing an exception
             if (files == null)
+            {
                 throw new ArgumentNullException(nameof(files));
+            }
 
             // Get the container
-            var blobContainer = await _azureBlobConnectionFactory.GetBlobContainer(container).ConfigureAwait(false);
+            var blobContainer = await this.azureBlobConnectionFactory.GetBlobContainer(container).ConfigureAwait(false);
 
             var list = new List<CloudBlockBlob>();
 
@@ -56,48 +69,16 @@ namespace CDNApplication.Data.Services
             {
                 // Create the blob to hold the data
                 var blob = blobContainer.GetBlockBlobReference(UniqueFileName(files[i].Name));
+
                 // Send the file to the cloud
                 using (StreamContent streamContent = new StreamContent(files[i].Data))
                 {
-
                     var stream = await streamContent.ReadAsStreamAsync().ConfigureAwait(false);
 
                     await blob.UploadFromStreamAsync(stream).ConfigureAwait(false);
-
                 }
 
                 list.Add(blob);
-
-            }
-
-            return list;
-        }
-
-        public async Task<List<CloudBlockBlob>> UploadMultipleFilesAsync(IFormFileCollection files, string container = null)
-        {
-            // Perhaps we can fail more gracefully then just throwing an exception
-            if (files == null)
-                throw new ArgumentNullException(nameof(files));
-
-            // Get the container
-            var blobContainer = await _azureBlobConnectionFactory.GetBlobContainer(container).ConfigureAwait(false);
-
-            var list = new List<CloudBlockBlob>();
-
-            for (int i = 0; i < files.Count; i++)
-            {
-                // Create the blob to hold the data
-                var blob = blobContainer.GetBlockBlobReference(AzureBlobService.UniqueFileName(files[i].FileName));
-                // Send the file to the cloud
-                using (var stream = files[i].OpenReadStream())
-                {
-
-                    await blob.UploadFromStreamAsync(stream).ConfigureAwait(false);
-
-                }
-
-                list.Add(blob);
-
             }
 
             return list;

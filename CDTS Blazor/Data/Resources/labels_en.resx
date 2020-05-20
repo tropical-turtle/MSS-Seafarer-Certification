@@ -12,7 +12,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="CloudStorageAccountConnectionStringExceptionErrorMessage" xml:space="preserve">
-        <value>Invalid connection string provided</value>
+    <data name="CDNApplicationProgressApplicantDetails" xml:space="preserve">
+        <value>Applicant Details</value>
+    </data>
+    <data name="CDNApplicationProgressMailingAddress" xml:space="preserve">
+        <value>Mailing Address</value>
+    </data>
+    <data name="CDNApplicationProgressIdentityDocuments" xml:space="preserve">
+        <value>Identity Documents</value>
+    </data>
+    <data name="CDNApplicationProgressSignature" xml:space="preserve">
+        <value>Remarks and Signature</value>
     </data>
 </root>
