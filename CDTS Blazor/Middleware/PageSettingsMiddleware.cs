@@ -1,11 +1,10 @@
-﻿namespace CDNApplication.Middleware
+namespace CDNApplication.Middleware
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using GoC.WebTemplate.Components.Core.Services;
     using GoC.WebTemplate.Components.Entities;
-    using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Http;
 
     /// <summary>

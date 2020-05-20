@@ -1,4 +1,4 @@
-﻿namespace CDNApplication.Data.Services
+namespace CDNApplication.Data.Services
 {
     using System.Threading.Tasks;
     using Microsoft.Azure.Storage.Blob;

@@ -1,7 +1,8 @@
-﻿namespace CDNApplication.Data.Services
+namespace CDNApplication.Data.Services
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using BlazorInputFile;
     using Microsoft.AspNetCore.Http;
     using Microsoft.Azure.Storage.Blob;
 
@@ -24,6 +25,6 @@
         /// <param name="files">The files to upload.</param>
         /// <param name="container">The container to connect to.</param>
         /// <returns>A list of uploaded blob.</returns>
-        Task<List<CloudBlockBlob>> UploadMultipleFilesAsync(IFormFileCollection files, string container = null);
+        Task<List<CloudBlockBlob>> UploadMultipleFilesAsync(IFileListEntry[] files, string container = null);
     }
 }
