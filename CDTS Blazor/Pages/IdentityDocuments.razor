@@ -2,7 +2,7 @@
 @using CDNApplication.Data.Services;
 @using BlazorInputFile;
 
-@inject IAzureBlobService _azureBlobService;
+@inject IAzureBlobService azureBlobService;
 @using Data.Resources
 
 <nav aria-label="progress" class="step-indicator">
@@ -34,25 +34,28 @@
 
     @if (@loading == true)
     {
+        // TODO : Add a loading animation instead of just text.
         <div>Loading.....</div>
     }
 
-    @if (fileUploaded == FileUploaded.TRUE)
+    // TODO : Make the alerts closeable
+    // TODO : Keep file names so the user knows that the files haven't disapeared
+    @if (fileUploaded == FileUploaded.SUCCESS)
     {
         <div class="alert alert-success" role="alert">
 
             @if (@selectedFiles.Length == 1)
             {
-                <span> Uploaded 1 file successfully</span>
+                <span>@labels_en.IdentityDocumentUploadedSuccessfully</span>
             }
             else
             {
-                <span>Uploaded @selectedFiles.Length files successfully</span>
+                <span>@string.Format(labels_en.IdentityDocumentsUploadedSuccessfully, selectedFiles.Length)</span>
             }
 
         </div>
     }
-    else if (fileUploaded == FileUploaded.FALSE)
+    else if (fileUploaded == FileUploaded.FAIL)
     {
         <div class="alert alert-danger" role="alert">
             Upload was unsucessful
@@ -83,11 +86,11 @@
         StateHasChanged();
 
         // Upload the file to the root directory
-        var result = await _azureBlobService.UploadMultipleFilesAsync(files);
+        var result = await azureBlobService.UploadMultipleFilesAsync(files);
 
         loading = false;
 
-        fileUploaded = result.Count == files.Length ? FileUploaded.TRUE : FileUploaded.FALSE;
+        fileUploaded = result.Count == files.Length ? FileUploaded.SUCCESS : FileUploaded.FAIL;
 
         StateHasChanged();
 
@@ -96,8 +99,8 @@
     public enum FileUploaded
     {
         DEFAULT,
-        TRUE,
-        FALSE
+        SUCCESS,
+        FAIL,
     }
 
 }

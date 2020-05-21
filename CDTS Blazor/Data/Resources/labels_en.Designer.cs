@@ -70,5 +70,19 @@ namespace CDNApplication.Data.Resources {
                 return ResourceManager.GetString("CDNApplicationProgressSignature", resourceCulture);
             }
         }
+
+        internal static string IdentityDocumentUploadedSuccessfully
+        {
+            get {
+                return ResourceManager.GetString("IdentityDocumentUploadedSuccessfully", resourceCulture);
+            }
+        }
+        
+        internal static string IdentityDocumentsUploadedSuccessfully
+        {
+            get {
+                return ResourceManager.GetString("IdentityDocumentsUploadedSuccessfully", resourceCulture);
+            }
+        }
     }
 }
