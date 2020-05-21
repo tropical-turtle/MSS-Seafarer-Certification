@@ -32,13 +32,27 @@
         </div>
     </form>
 
-    @if (completed == 1)
+    @if (@loading == true)
+    {
+        <div>Loading.....</div>
+    }
+
+    @if (fileUploaded == FileUploaded.TRUE)
     {
         <div class="alert alert-success" role="alert">
-            Files uploaded successfully
+
+            @if (@selectedFiles.Length == 1)
+            {
+                <span> Uploaded 1 file successfully</span>
+            }
+            else
+            {
+                <span>Uploaded @selectedFiles.Length files successfully</span>
+            }
+
         </div>
     }
-    else if (completed == 0)
+    else if (fileUploaded == FileUploaded.FALSE)
     {
         <div class="alert alert-danger" role="alert">
             Upload was unsucessful
@@ -51,25 +65,39 @@
 
 @code {
 
-    int completed = -1;
+    bool loading = false;
+
+    public FileUploaded fileUploaded { get; set; }
+
+    public IFileListEntry[] selectedFiles = new IFileListEntry[0];
 
     async void HandleFileSelected(IFileListEntry[] files)
     {
 
+        selectedFiles = files;
+
+        fileUploaded = FileUploaded.DEFAULT;
+
+        loading = true;
+
+        StateHasChanged();
+
         // Upload the file to the root directory
-        var result = await _azureBlobService.UploadMultipleFilesAsync(files).ConfigureAwait(false);
+        var result = await _azureBlobService.UploadMultipleFilesAsync(files);
 
-        completed = -1;
+        loading = false;
 
-        if (result.Count == files.Length)
-        {
-            completed = 1;
-        }
-        else
-        {
-            completed = 0;
-        }
+        fileUploaded = result.Count == files.Length ? FileUploaded.TRUE : FileUploaded.FALSE;
 
+        StateHasChanged();
+
+    }
+
+    public enum FileUploaded
+    {
+        DEFAULT,
+        TRUE,
+        FALSE
     }
 
 }
