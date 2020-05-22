@@ -35,13 +35,17 @@
     @if (@loading == true)
     {
         // TODO : Add a loading animation instead of just text.
+        // Aurora: https://design.gccollab.ca/component/icons
+        // WET: https://wet-boew.github.io/wet-boew-styleguide/design/icons-en.html
+        // Bootstrap: https://www.blazorade.com/Blazorade-Bootstrap/spinners
         <div>Loading.....</div>
     }
 
-    // TODO : Make the alerts closeable
-    // TODO : Keep file names so the user knows that the files haven't disapeared
     @if (fileUploaded == FileUploaded.SUCCESS)
-    {
+    {    
+    // TODO : Make the alerts closeable
+    // https://www.blazorade.com/Blazorade-Bootstrap/alerts
+    // TODO : Keep file names so the user knows that the files haven't disapeared
         <div class="alert alert-success" role="alert">
 
             @if (@selectedFiles.Length == 1)
