@@ -30,4 +30,7 @@
     <data name="IdentityDocumentsUploadedSuccessfully" xml:space="preserve">
         <value>Uploaded {0} files successfully</value>
     </data>
+        <data name="IdentityDocumentsUploadUnsuccessful" xml:space="preserve">
+        <value>Upload was unsucessful</value>
+    </data>
 </root>

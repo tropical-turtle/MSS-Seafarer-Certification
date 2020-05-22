@@ -84,5 +84,13 @@ namespace CDNApplication.Data.Resources {
                 return ResourceManager.GetString("IdentityDocumentsUploadedSuccessfully", resourceCulture);
             }
         }
+
+        internal static string IdentityDocumentsUploadUnsuccessful
+        {
+            get
+            {
+                return ResourceManager.GetString("IdentityDocumentsUploadUnsuccessful", resourceCulture);
+            }
+        }
     }
 }
