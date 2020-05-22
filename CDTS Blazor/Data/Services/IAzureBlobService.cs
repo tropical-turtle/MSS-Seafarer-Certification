@@ -24,7 +24,7 @@ namespace CDNApplication.Data.Services
         /// </summary>
         /// <param name="files">The files to upload.</param>
         /// <param name="container">The container to connect to.</param>
-        /// <returns>A list of uploaded blob.</returns>
+        /// <returns>A list of sucessfully uploaded blobs.</returns>
         Task<List<CloudBlockBlob>> UploadMultipleFilesAsync(IFileListEntry[] files, string container = null);
     }
 }

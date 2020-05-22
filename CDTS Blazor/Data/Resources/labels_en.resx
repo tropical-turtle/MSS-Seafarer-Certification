@@ -24,4 +24,13 @@
     <data name="CDNApplicationProgressSignature" xml:space="preserve">
         <value>Remarks and Signature</value>
     </data>
+    <data name="IdentityDocumentUploadedSuccessfully" xml:space="preserve">
+        <value>Uploaded 1 file successfully</value>
+    </data>
+    <data name="IdentityDocumentsUploadedSuccessfully" xml:space="preserve">
+        <value>Uploaded {0} files successfully</value>
+    </data>
+        <data name="IdentityDocumentsUploadUnsuccessful" xml:space="preserve">
+        <value>Upload was unsucessful</value>
+    </data>
 </root>

@@ -51,6 +51,7 @@ namespace CDNApplication.Data.Services
 
         private CloudBlobClient GetClient()
         {
+            // TODO : fail gracefully when connection string is invalid
             if (!CloudStorageAccount.TryParse(connectionString: this.connectionString, out CloudStorageAccount cloudStorageAccount))
             {
                 throw new CloudStorageAccountConnectionStringException();

@@ -2,7 +2,7 @@
 @using CDNApplication.Data.Services;
 @using BlazorInputFile;
 
-@inject IAzureBlobService _azureBlobService;
+@inject IAzureBlobService azureBlobService;
 @using Data.Resources
 
 <nav aria-label="progress" class="step-indicator">
@@ -32,17 +32,79 @@
         </div>
     </form>
 
+    @if (@loading == true)
+    {
+        // TODO : Add a loading animation instead of just text.
+        // Aurora: https://design.gccollab.ca/component/icons
+        // WET: https://wet-boew.github.io/wet-boew-styleguide/design/icons-en.html
+        // Bootstrap: https://www.blazorade.com/Blazorade-Bootstrap/spinners
+        <div>Loading.....</div>
+    }
+
+    @if (fileUploaded == FileUploaded.SUCCESS)
+    {    
+    // TODO : Make the alerts closeable
+    // https://www.blazorade.com/Blazorade-Bootstrap/alerts
+    // TODO : Keep file names so the user knows that the files haven't disapeared
+        <div class="alert alert-success" role="alert">
+
+            @if (@selectedFiles.Length == 1)
+            {
+                <span>@labels_en.IdentityDocumentUploadedSuccessfully</span>
+            }
+            else
+            {
+                <span>@string.Format(labels_en.IdentityDocumentsUploadedSuccessfully, selectedFiles.Length)</span>
+            }
+
+        </div>
+    }
+    else if (fileUploaded == FileUploaded.FAIL)
+    {
+        <div class="alert alert-danger" role="alert">
+            @labels_en.IdentityDocumentsUploadUnsuccessful
+        </div>
+    }
+
     <a class="btn btn-primary" href="/signature" role="button">Next</a>
     <a class="btn btn-secondary" href="/" role="button">Cancel</a>
 </div>
 
 @code {
 
+    bool loading = false;
+
+    public FileUploaded fileUploaded { get; set; }
+
+    public IFileListEntry[] selectedFiles = new IFileListEntry[0];
+
     async void HandleFileSelected(IFileListEntry[] files)
     {
-        // Upload the file to the root directory
-        var result = await _azureBlobService.UploadMultipleFilesAsync(files).ConfigureAwait(false);
 
+        selectedFiles = files;
+
+        fileUploaded = FileUploaded.DEFAULT;
+
+        loading = true;
+
+        StateHasChanged();
+
+        // Upload the file to the root directory
+        var result = await azureBlobService.UploadMultipleFilesAsync(files);
+
+        loading = false;
+
+        fileUploaded = result.Count == files.Length ? FileUploaded.SUCCESS : FileUploaded.FAIL;
+
+        StateHasChanged();
+
+    }
+
+    public enum FileUploaded
+    {
+        DEFAULT,
+        SUCCESS,
+        FAIL,
     }
 
 }
