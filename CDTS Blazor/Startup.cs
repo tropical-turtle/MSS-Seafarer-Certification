@@ -36,8 +36,12 @@ namespace CDNApplication
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<IAzureBlobConnectionFactory, AzureBlobConnectionFactory>();
-            services.AddTransient<IAzureBlobService, AzureBlobService>();
+
+            var keyV = new AzureKeyVaultService("https://kv-seafarer-dev.vault.azure.net/");
+
+            services.AddSingleton(new AzureKeyVaultService("https://kv-seafarer-dev.vault.azure.net/"));
+            services.AddTransient<IAzureBlobConnectionFactory, AzureBlobConnectionFactory>();
+            services.AddScoped<IAzureBlobService, AzureBlobService>();
             services.AddModelAccessor();
             services.ConfigureGoCTemplateRequestLocalization(); // if GoC.WebTemplate-Components.Core (in NuGet) >= v2.1.1
         }
