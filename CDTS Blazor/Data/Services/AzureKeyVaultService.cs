@@ -1,5 +1,6 @@
 ﻿namespace CDNApplication.Data.Services
 {
+    using System;
     using System.Threading.Tasks;
     using Microsoft.Azure.KeyVault;
     using Microsoft.Azure.KeyVault.Models;
@@ -41,14 +42,15 @@
         /// Get a list of secrets from the azure key vault.
         /// </summary>
         /// <returns>List of secrets.</returns>
-        public IPage<SecretItem> GetListOfSecretsAsync()
+        public IPage<SecretItem> GetListOfSecrets()
         {
+            IPage<SecretItem> secrets = new Page<SecretItem>();
             using (var keyVaultClient = GetKeyVaultClient())
             {
-                var sercrets = keyVaultClient.GetSecretsAsync(vaultBaseUrl: this.dNs).ConfigureAwait(true).GetAwaiter().GetResult();
-
-                return sercrets;
+                secrets = keyVaultClient.GetSecretsAsync(vaultBaseUrl: this.dNs).ConfigureAwait(true).GetAwaiter().GetResult();
             }
+
+            return secrets;
         }
 
         /// <summary>
@@ -58,10 +60,8 @@
         private static KeyVaultClient GetKeyVaultClient()
         {
             var azureServiceTokenProvider = new AzureServiceTokenProvider();
-
             var keyVaultClient = new KeyVaultClient(
-                        new KeyVaultClient.AuthenticationCallback(
-                            azureServiceTokenProvider.KeyVaultTokenCallback));
+                        new KeyVaultClient.AuthenticationCallback(azureServiceTokenProvider.KeyVaultTokenCallback));
 
             return keyVaultClient;
         }
