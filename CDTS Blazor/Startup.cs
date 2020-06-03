@@ -37,8 +37,6 @@ namespace CDNApplication
             services.AddRazorPages();
             services.AddServerSideBlazor();
 
-            var keyV = new AzureKeyVaultService("https://kv-seafarer-dev.vault.azure.net/");
-
             services.AddSingleton(new AzureKeyVaultService("https://kv-seafarer-dev.vault.azure.net/"));
             services.AddTransient<IAzureBlobConnectionFactory, AzureBlobConnectionFactory>();
             services.AddScoped<IAzureBlobService, AzureBlobService>();

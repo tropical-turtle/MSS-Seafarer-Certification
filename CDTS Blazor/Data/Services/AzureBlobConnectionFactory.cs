@@ -22,11 +22,11 @@ namespace CDNApplication.Data.Services
         /// <param name="azureKeyVaultService">Azure key vault service.</param>
         public AzureBlobConnectionFactory(AzureKeyVaultService azureKeyVaultService)
         {
-#pragma warning disable CA1062 // Validate arguments of public methods
-            this.connectionString = azureKeyVaultService.GetSecret("BlobStorage");
-#pragma warning restore CA1062 // Validate arguments of public methods
+            if (azureKeyVaultService != null)
+            {
+                this.connectionString = azureKeyVaultService.GetSecretByName("BlobStorage");
+            }
         }
-#pragma warning restore SA1028 // Code should not contain trailing whitespace
 
         /// <inheritdoc/>
         public async Task<CloudBlobContainer> GetBlobContainer(string container = null)

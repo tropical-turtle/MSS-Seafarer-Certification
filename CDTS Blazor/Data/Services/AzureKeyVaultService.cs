@@ -27,7 +27,7 @@
         /// </summary>
         /// <param name="secretName">Secret to get.</param>
         /// <returns>Secret value.</returns>
-        public string GetSecret(string secretName)
+        public string GetSecretByName(string secretName)
         {
             using (var keyVaultClient = GetKeyVaultClient())
             {
