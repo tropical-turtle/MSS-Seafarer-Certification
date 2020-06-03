@@ -52,5 +52,11 @@ namespace CDNApplication.Data.Resources {
                 return ResourceManager.GetString("CloudStorageAccountConnectionStringExceptionErrorMessage", resourceCulture);
             }
         }
+        
+        internal static string AzureKeyVaultServiceIsNullExceptionErrorMessage {
+            get {
+                return ResourceManager.GetString("AzureKeyVaultServiceIsNullExceptionErrorMessage", resourceCulture);
+            }
+        }
     }
 }
