@@ -20,7 +20,7 @@ namespace CDNApplication.Data.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="AzureBlobService"/> class.
         /// </summary>
-        /// <param name="azureBlobConnectionFactory">The Azure blobl connection factory.</param>
+        /// <param name="azureBlobConnectionFactory">The Azure blob connection factory.</param>
         public AzureBlobService(IAzureBlobConnectionFactory azureBlobConnectionFactory)
         {
             this.azureBlobConnectionFactory = azureBlobConnectionFactory;
