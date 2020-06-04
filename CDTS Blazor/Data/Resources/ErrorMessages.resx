@@ -15,4 +15,7 @@
     <data name="CloudStorageAccountConnectionStringExceptionErrorMessage" xml:space="preserve">
         <value>Invalid connection string provided</value>
     </data>
+    <data name="AzureKeyVaultServiceIsNullExceptionErrorMessage" xml:space="preserve">
+        <value>azureKeyVaultService is null</value>
+    </data>
 </root>

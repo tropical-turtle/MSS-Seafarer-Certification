@@ -10,7 +10,7 @@ namespace CDNApplication.Data.Services
     /// </summary>
     public class AzureBlobConnectionFactory : IAzureBlobConnectionFactory
     {
-        private string connectionString;
+        private readonly string connectionString;
 
         private CloudBlobClient cloudBlobClient;
 
@@ -19,9 +19,13 @@ namespace CDNApplication.Data.Services
         /// <summary>
         /// Initializes a new instance of the <see cref="AzureBlobConnectionFactory"/> class.
         /// </summary>
-        public AzureBlobConnectionFactory()
+        /// <param name="azureKeyVaultService">Azure key vault service.</param>
+        public AzureBlobConnectionFactory(AzureKeyVaultService azureKeyVaultService)
         {
-            this.connectionString = Environment.GetEnvironmentVariable("BlobStorage");
+            if (azureKeyVaultService != null)
+            {
+                this.connectionString = azureKeyVaultService.GetSecretByName("BlobStorage");
+            }
         }
 
         /// <inheritdoc/>
