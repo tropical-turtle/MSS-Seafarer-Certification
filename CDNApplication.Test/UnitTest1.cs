@@ -1,14 +1,23 @@
 using System;
+using CDNApplication.TCComponents;
+using Microsoft.AspNetCore.Components.Testing;
 using Xunit;
 
 namespace CDNApplication.Test
 {
-    public class UnitTest1
+    public class TCInputRadioTest
     {
-        [Fact]
-        public void Test1()
-        {
+        private TestHost host;
 
+        public TCInputRadioTest()
+        {
+            this.host = new TestHost();
+        }
+
+        [Fact]
+        public void Test()
+        {
+            this.host.AddComponent<TCInputRadio<string>>();
         }
     }
 }
