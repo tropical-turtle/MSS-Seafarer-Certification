@@ -1,8 +1,6 @@
 [![Board Status](https://dev.azure.com/transport-canada/0f91b5b9-ce7e-44d1-b2f1-ca76af598788/f7a003ec-d6de-4bef-a3b5-e1ea2d282372/_apis/work/boardbadge/f8975bd6-2e82-4aee-927a-642bbe432844)](https://dev.azure.com/transport-canada/0f91b5b9-ce7e-44d1-b2f1-ca76af598788/_boards/board/t/f7a003ec-d6de-4bef-a3b5-e1ea2d282372/Microsoft.RequirementCategory)
 # SeaCertsBlazor
 
-[![Board Status](https://dev.azure.com/tc-tibo/4dd797bf-468b-4734-809d-7a5d7e801e2d/98f281cb-b20c-4b34-9384-beeaf67bef78/_apis/work/boardbadge/04d8c3b1-ac45-422d-9c05-c39db02d017d?columnOptions=2&columns=To%20Do,Doing,Done)](https://dev.azure.com/tc-tibo/4dd797bf-468b-4734-809d-7a5d7e801e2d/_boards/board/t/98f281cb-b20c-4b34-9384-beeaf67bef78/Microsoft.RequirementCategory/)
-
 ![.NET Core](https://github.com/tc-tibo/SeaCertsBlazor/workflows/.NET%20Core/badge.svg?branch=master)
 
 # Introduction 
