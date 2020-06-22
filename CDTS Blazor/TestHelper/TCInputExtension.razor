@@ -1,0 +1,43 @@
+﻿
+@using CDNApplication.TCComponents
+
+<h3>TCInputExtension component test</h3>
+
+<EditForm Model="info" OnSubmit="FormSubmitted">
+    <h4>Following is Test Input to help test TCInput </h4>
+    <input id="TCInputExtensionId" type="text" @oninput="@OnInput" value=@info.Item1 />
+    <br /><br />
+    <h4>Following is TCInputText </h4>
+    <TCInputText Label="TCInputLabel"
+                 Id="TCInputId"
+                 @bind-Value="info.Item1"
+                 ValidationFor="@(() => info.Item2)" />
+</EditForm>
+
+@code
+{
+
+    public void OnInput(ChangeEventArgs e)
+    {
+        info.Item1 = e.Value.ToString();
+    }
+
+    SomeInfo info = new SomeInfo();
+
+    public void FormSubmitted()
+    {
+
+    }
+
+    public class SomeInfo
+    {
+        public string Item1 { get; set; }
+        public string Item2 { get; set; }
+        public string Item3 { get; set; }
+        public string Item4 { get; set; }
+        public string Item5 { get; set; }
+
+
+    }
+
+}
