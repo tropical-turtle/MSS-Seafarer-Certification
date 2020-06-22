@@ -51,7 +51,7 @@
         {
             @if (member.MemberType == MemberTypes.Property && member.Name == FieldName)
             {
-                <option>@item.GetType().GetProperty(member.Name).GetValue(item) </option>
+                <option>@item.GetType().GetProperty(member.Name).GetValue(item)</option>
             }
         }
     }
