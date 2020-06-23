@@ -46,7 +46,7 @@ namespace Test
 
 
 
-        // Following test illistrates how we can pass public parameters to a component when testing with bUnit.
+        // Following test illustrates how we can pass public parameters to a component when testing with bUnit.
         // Also show how to reference the type of the generic item.
         // this link has info about passing parameters in bUnit test
         // https://bunit.egilhansen.com/docs/csharp-based-testing.html
