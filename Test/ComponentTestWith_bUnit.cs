@@ -8,10 +8,11 @@ using System.Linq;
 using AngleSharp.Diffing.Extensions;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Test
 {
-    public class UnitTest1
+    public class ComponentTestWith_bUnit
     {
 
         [Fact]
@@ -70,8 +71,8 @@ namespace Test
                 ); 
 
 
-            var firstInputElement = markup.Find("option");
             var allOptionElements = markup.FindAll("option");
+
 
             List<string> listOfCountriesInsideSelectionTag = new List<string>();
             foreach(var option in allOptionElements)
@@ -80,21 +81,26 @@ namespace Test
             }
 
 
+            bool allExpectedOptionsNormal = isCountryOptionPopulated(CountriesToPopulate, listOfCountriesInsideSelectionTag);
+            
+            Assert.True(allExpectedOptionsNormal);
 
-            bool allExpectedOptions = true;
+        }
 
-            for(int n=0; n<4; n++)
+
+
+        private bool isCountryOptionPopulated(List<Country> countriesPassedAsParameter, List<string> expectedCountries )
+        {
+            bool isPopulated = true;
+            for (int n = 0; n < 4; n++)
             {
-                if( CountriesToPopulate[n].Text != listOfCountriesInsideSelectionTag[n])
+                if (countriesPassedAsParameter[n].Text != expectedCountries[n])
                 {
-                    allExpectedOptions = false;
+                    isPopulated = false;
                     break;
                 }
             }
-
-            Assert.True(allExpectedOptions);
-
-
+            return isPopulated;
         }
 
 
