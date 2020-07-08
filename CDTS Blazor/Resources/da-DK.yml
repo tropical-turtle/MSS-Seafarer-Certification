@@ -1,0 +1,28 @@
+ApplicationName: ANSØGNING OM KANDIDATDOKUMENTNUMMER (CDN)
+PrivacyActDisclaimer: Ansvarsfraskrivelse for beskyttelse af personlige oplysninger
+Next: Næste
+ApplicantDetails: Oplysninger om ansøger
+MailingAddress: Postadresse
+IdentityDocuments: Identitetsdokumenter
+RemarksAndSignature: Bemærkninger og underskrift
+Surname: Efternavn
+Givennames: Givent navn(e)
+Initials: Initialer
+DateOfBirth: Fødselsdag
+Nationality: Nationalitet
+Cancel: Annullere
+AptartmentUnitNumber: Aptartment/enhedsnummer
+StreetNumber: Gadenummer
+Street: Street
+P_O_Box: P.O. Boks
+City: Byen
+Province: Provinsen
+PostalCode: Postnummer
+Country: Land
+TelephoneNumber: Telefonnummer
+Email: E‑mail
+UploadDocuments: Overfør dokumenter
+UploadedFilesSuccessfully: Overførte filer lykkedes
+UploadWasUnsucessful: Upload var ikke lykkedes
+UploadedOneFileSuccessfully: Overført 1 fil lykkedes
+Submit: Indsende

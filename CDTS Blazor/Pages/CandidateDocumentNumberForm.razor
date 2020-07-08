@@ -1,25 +1,34 @@
-﻿@page "/cdnform"
+﻿@inject ILanguageContainerService languageContainer
+@inject CDNApplication.Data.Services.UserPreference userPreference
+@inject NavigationManager navigationManager
+@inject IJSRuntime JSRuntime
+
+
+
+@page "/cdnform"
+@page "/cdnform/fr"
+@page "/cdnform/en"
 @using System.ComponentModel.DataAnnotations;
 
 @using Data;
 @using CDNApplication.TCComponents;
 @using CDNApplication.Data.Resources;
-
-@inject NavigationManager navigationManger
+@using System.Threading
+@inject NavigationManager navigationManager
 
 <nav aria-label="progress" class="step-indicator">
-<ul class="steps">
-<li class="active" aria-current="true">
-            @labels_en.CDNApplicationProgressApplicantDetails
+    <ul class="steps">
+        <li class="active" aria-current="true">
+            @languageContainer.Keys["APPLICANT_DETAILS"]
         </li>
-<li>
-            @labels_en.CDNApplicationProgressMailingAddress<span class="sr-only">not completed</span>
+        <li>
+            @languageContainer.Keys["MAILING_ADDRESS"]<span class="sr-only">not completed</span>
         </li>
-<li>
-            @labels_en.CDNApplicationProgressIdentityDocuments<span class="sr-only">not completed</span>
+        <li>
+            @languageContainer.Keys["IDENTITY_DOCUMENTS"]<span class="sr-only">not completed</span>
         </li>
-<li>
-            @labels_en.CDNApplicationProgressSignature<span class="sr-only">not completed</span>
+        <li>
+            @languageContainer.Keys["REMARKS_AND_SIGNATURE"]<span class="sr-only">not completed</span>
         </li>
     </ul>
 </nav>
@@ -27,83 +36,123 @@
 <br />
 
 <EditForm Model="@tombstoneInformation" OnValidSubmit="HandleValidSubmit">
-<DataAnnotationsValidator />
-<div class="form-group">
-<TCInputText Label="Surname"
-             Id="CDN-Surname"
-             @bind-Value="tombstoneInformation.Surname"
-             ValidationFor="@(() => tombstoneInformation.Surname)" />
+    <DataAnnotationsValidator />
+    <div class="form-group">
+        <TCInputText Label=@languageContainer.Keys["Surname"]
+                     Id="CDN-Surname"
+                     @bind-Value="tombstoneInformation.Surname"
+                     ValidationFor="@(() => tombstoneInformation.Surname)" />
 
 
 
     </div>
-<div class="form-group">
-<TCInputText Label="Givenname(s)"
-             Id="CDN-Givennames"
-             @bind-Value="tombstoneInformation.GivenName"
-             ValidationFor="@(() => tombstoneInformation.GivenName)" />
+    <div class="form-group">
+        <TCInputText Label=@languageContainer.Keys["Givennames"]
+                     Id="CDN-Givennames"
+                     @bind-Value="tombstoneInformation.GivenName"
+                     ValidationFor="@(() => tombstoneInformation.GivenName)" />
 
 
 
     </div>
-<div class="form-group">
-<TCInputText Label="Initials"
-             Id="CDN-Initials"
-             @bind-Value="tombstoneInformation.Initials"
-             ValidationFor="@(() => tombstoneInformation.Initials)" />
+    <div class="form-group">
+        <TCInputText Label=@languageContainer.Keys["Initials"]
+                     Id="CDN-Initials"
+                     @bind-Value="tombstoneInformation.Initials"
+                     ValidationFor="@(() => tombstoneInformation.Initials)" />
 
 
 
     </div>
-<div class="form-group">
-<TCInputText Label="Date of Birth (dd-mm-yyyy)"
-             Id="CDN-DateOfBirth"
-             @bind-Value="tombstoneInformation.DateOfBirth"
-             ValidationFor="@(() => tombstoneInformation.DateOfBirth)" />
+    <div class="form-group">
+        <TCInputText Label=@languageContainer.Keys["DateOfBirth"]
+                     Id="CDN-DateOfBirth"
+                     @bind-Value="tombstoneInformation.DateOfBirth"
+                     ValidationFor="@(() => tombstoneInformation.DateOfBirth)" />
 
 
 
     </div>
-<div class="form-group">
-<TCInputText Label="Nationality"
-             Id="CDN-Nationalty"
-             @bind-Value="tombstoneInformation.Nationality"
-             ValidationFor="@(() => tombstoneInformation.Nationality)" />
-
-
-
-    </div>
-
-<div class="form-group">
-<TCInputRadio Label="English"
-              Id="CDN-Language-English"
-              name="language"
-              SelectedValue="CorrespondenceLanguage.ENGLISH"
-              @bind-Value="tombstoneInformation.LanguagePreference" />
-
-
-
-<TCInputRadio Label="Français"
-              Id="CDN-Language-French"
-              name="language"
-              SelectedValue="CorrespondenceLanguage.FRENCH"
-              @bind-Value="tombstoneInformation.LanguagePreference" />
+    <div class="form-group">
+        <TCInputText Label=@languageContainer.Keys["Nationality"]
+                     Id="CDN-Nationalty"
+                     @bind-Value="tombstoneInformation.Nationality"
+                     ValidationFor="@(() => tombstoneInformation.Nationality)" />
 
 
 
     </div>
 
-<button class="btn btn-primary" type="submit">Next</button>
-<a class="btn btn-secondary" href="/" role="button">Cancel</a>
+    <div class="form-group">
+        @*<TCInputRadio Label="English"
+                          Id="CDN-Language-English"
+                          name="language"
+                          SelectedValue="CorrespondenceLanguage.ENGLISH"
+                          @bind-Value="tombstoneInformation.LanguagePreference" />
+
+
+
+            <TCInputRadio Label="Français"
+                          Id="CDN-Language-French"
+                          name="language"
+                          SelectedValue="CorrespondenceLanguage.FRENCH"
+                          @bind-Value="tombstoneInformation.LanguagePreference" />*@
+
+
+
+    </div>
+
+    <button class="btn btn-primary" type="submit">@languageContainer.Keys["Next"]</button>
+    <a class="btn btn-secondary" href="/" role="button">@languageContainer.Keys["Cancel"]</a>
+
 </EditForm>
 
 @code {
+
+    [Parameter]
+    public string CurrentLanguage { get; set; } = "English";
+
+    [Parameter]
+    public string NextUrl { get; set; } = "/mailingaddress/en";
+
+    protected override void OnInitialized()
+    {
+        var current_url = navigationManager.Uri;
+
+        if (IsFrenchURL(current_url))
+        {
+            //if (Thread.CurrentThread.CurrentCulture.Name != "fr-CA")
+            //{
+            //    languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("fr-CA"));
+            //}
+
+            languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("fr-CA"));
+            userPreference.LanguagePreference = "French";
+            NextUrl = "/mailingaddress/fr";
+        }
+        else
+        {
+            if (Thread.CurrentThread.CurrentCulture.Name != "en-CA")
+            {
+                languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-CA"));
+            }
+            languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-CA"));
+            userPreference.LanguagePreference = "English";
+            NextUrl = "/mailingaddress/en";
+        }
+
+
+        JSRuntime.InvokeVoidAsync("ChangeLanguageLinkText", userPreference.LanguagePreference);
+
+    }
+
     private TombstoneInformation tombstoneInformation = new TombstoneInformation();
 
     private void HandleValidSubmit()
     {
         Console.WriteLine("OnValidSubmit");
-        navigationManger.NavigateTo($"{navigationManger.BaseUri}/mailingaddress");
+        string url = navigationManager.BaseUri + NextUrl;
+        navigationManager.NavigateTo(url, true);
     }
 
     public class TombstoneInformation
@@ -130,8 +179,28 @@
         [Required]
         public string Nationality { get; set; }
 
-        [Required]
-        [Display(Name = "Language")]
-        public CorrespondenceLanguage LanguagePreference { get; set; }
+        //[Required]
+        //[Display(Name = "Language")]
+        //public CorrespondenceLanguage LanguagePreference { get; set; }
     }
+
+    private bool IsFrenchURL(string url)
+    {
+        bool isFrench = false;
+        if (url != null)
+        {
+            int length = url.Length;
+            int startIndexOfFR = length - 2;
+
+
+            var lastTwoLetters = url.Substring(startIndexOfFR, 2);
+            if (lastTwoLetters == "fr")
+            {
+                isFrench = true;
+            }
+        }
+
+        return isFrench;
+    }
+
 }

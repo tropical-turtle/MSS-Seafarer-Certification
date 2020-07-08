@@ -32,7 +32,7 @@
     <!-- Write closure template -->
     <script type="text/javascript">
 
-        document.write(wet.builder.refTop(@WebTemplateModel.Render.RefTop(isApplication : false)));
+        document.write(wet.builder.refTop(@WebTemplateModel.Render.RefTop(isApplication : true)));
     </script>
     @WebTemplateModel.Render.HtmlHeaderElements()
 </head>
@@ -44,8 +44,17 @@
     </div>
     <!-- Write closure template -->
     <script type="text/javascript">
-    var defTop = document.getElementById("def-top");
-    defTop.outerHTML = wet.builder.top(@WebTemplateModel.Render.Top());
+    @*var defTop = document.getElementById("def-top");
+        defTop.outerHTML = wet.builder.top(@WebTemplateModel.Render.Top());*@
+
+        var defTop = document.getElementById("def-top");
+        defTop.outerHTML = wet.builder.top({
+            "lngLinks": [{
+                "lang": "fr",
+                "href": "javascript:GetLanguageLinkElement()",
+                "text": "Français"
+            }]
+        });
     </script>
     <div class="container">
         <main property="mainContentOfPage" role="main">
@@ -79,8 +88,10 @@
     document.write(wet.builder.refFooter(@WebTemplateModel.Render.RefFooter()));
     </script>
     @WebTemplateModel.Render.HtmlBodyElements()
+    <script src="~/js/Ninjas.js"></script>
     <script src="_framework/blazor.server.js"></script>
     <script src="_content/BlazorInputFile/inputfile.js"></script>
-    <script src="~/js/aurora.min.js"></script>
+
+    @*<script src="~/js/aurora.min.js"></script>*@
 </body>
 </html>

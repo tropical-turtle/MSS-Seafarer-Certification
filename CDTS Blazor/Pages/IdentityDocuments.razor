@@ -1,23 +1,31 @@
-﻿@page "/identitydocuments"
+﻿@inject ILanguageContainerService languageContainer
+@inject CDNApplication.Data.Services.UserPreference userPreference
+@inject NavigationManager navigationManager
+@inject IJSRuntime JSRuntime
+
+@page "/identitydocuments/en"
+@page "/identitydocuments/fr"
+@*@inject IAzureBlobService azureBlobService;*@
+
+@using Data.Resources
 @using CDNApplication.Data.Services;
 @using BlazorInputFile;
+@using System.Threading
 
-@inject IAzureBlobService azureBlobService;
-@using Data.Resources
 
 <nav aria-label="progress" class="step-indicator">
     <ul class="steps">
         <li class="complete">
-            <a href="/cdnform">@labels_en.CDNApplicationProgressApplicantDetails</a><span class="sr-only">completed</span>
+            <a href="/cdnform">@languageContainer.Keys["APPLICANT_DETAILS"]</a><span class="sr-only">completed</span>
         </li>
         <li class="complete">
-            <a href="/mailingaddress">@labels_en.CDNApplicationProgressMailingAddress</a><span class="sr-only">completed</span>
+            <a href="/mailingaddress">@languageContainer.Keys["MAILING_ADDRESS"]</a><span class="sr-only">completed</span>
         </li>
         <li class="active" aria-current="true">
-            @labels_en.CDNApplicationProgressIdentityDocuments
+            @languageContainer.Keys["IDENTITY_DOCUMENTS"]
         </li>
         <li>
-            @labels_en.CDNApplicationProgressSignature<span class="sr-only">not completed</span>
+            @languageContainer.Keys["REMARKS_AND_SIGNATURE"]<span class="sr-only">not completed</span>
         </li>
     </ul>
 </nav>
@@ -25,17 +33,17 @@
 <br />
 
 <div class="wb-frmvld">
-   
+
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non 
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
 
     <form role="form" method="get" action="/">
         <div class="form-group">
-            <label for="Document">Upload Documents</label>
+            <label for="Document">@languageContainer.Keys["UploadDocuments"]</label>
             <InputFile id="Document" multiple class="form-control" OnChange="HandleFileSelected" />
         </div>
     </form>
@@ -46,36 +54,36 @@
         // Aurora: https://design.gccollab.ca/component/icons
         // WET: https://wet-boew.github.io/wet-boew-styleguide/design/icons-en.html
         // Bootstrap: https://www.blazorade.com/Blazorade-Bootstrap/spinners
-    <div>Loading.....</div>
+        <div>Loading.....</div>
     }
 
     @if (fileUploaded == FileUploaded.SUCCESS)
     {
-    // TODO : Make the alerts closeable
-    // https://www.blazorade.com/Blazorade-Bootstrap/alerts
-    // TODO : Keep file names so the user knows that the files haven't disapeared
-    <div class="alert alert-success" role="alert">
+        // TODO : Make the alerts closeable
+        // https://www.blazorade.com/Blazorade-Bootstrap/alerts
+        // TODO : Keep file names so the user knows that the files haven't disapeared
+        <div class="alert alert-success" role="alert">
 
-        @if (@selectedFiles.Length == 1)
+            @if (@selectedFiles.Length == 1)
             {
-        <span>@labels_en.IdentityDocumentUploadedSuccessfully</span>
+                <span>@labels_en.IdentityDocumentUploadedSuccessfully</span>
             }
             else
             {
-        <span>@string.Format(labels_en.IdentityDocumentsUploadedSuccessfully, selectedFiles.Length)</span>
+                <span>@string.Format(labels_en.IdentityDocumentsUploadedSuccessfully, selectedFiles.Length)</span>
             }
 
-    </div>
+        </div>
     }
     else if (fileUploaded == FileUploaded.FAIL)
     {
-    <div class="alert alert-danger" role="alert">
-        @labels_en.IdentityDocumentsUploadUnsuccessful
-    </div>
+        <div class="alert alert-danger" role="alert">
+            @labels_en.IdentityDocumentsUploadUnsuccessful
+        </div>
     }
 
-    <a class="btn btn-primary" href="/signature" role="button">Next</a>
-    <a class="btn btn-secondary" href="/" role="button">Cancel</a>
+    <a class="btn btn-primary" href=@NextUrl role="button">@languageContainer.Keys["Next"]</a>
+    <a class="btn btn-secondary" href="/" role="button">@languageContainer.Keys["Cancel"]</a>
 </div>
 
 @code {
@@ -86,7 +94,67 @@
 
     public IFileListEntry[] selectedFiles = new IFileListEntry[0];
 
-    async void HandleFileSelected(IFileListEntry[] files)
+
+
+    [Parameter]
+    public string NextUrl { get; set; } = "/signature/en";
+
+    protected override void OnInitialized()
+    {
+        var current_url = navigationManager.Uri;
+
+        if (IsFrenchURL(current_url))
+        {
+            if (Thread.CurrentThread.CurrentCulture.Name != "fr-CA")
+            {
+                languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("fr-CA"));
+            }
+
+            userPreference.LanguagePreference = "French";
+            NextUrl = "/signature/fr";
+        }
+        else
+        {
+            if (Thread.CurrentThread.CurrentCulture.Name != "en-CA")
+            {
+                languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-CA"));
+            }
+
+            userPreference.LanguagePreference = "English";
+            NextUrl = "/signature/en";
+        }
+
+        var nextT = languageContainer.Keys["Next"];
+        var cancel =languageContainer.Keys["Cancel"];
+
+
+
+        JSRuntime.InvokeVoidAsync("ChangeLanguageLinkText", userPreference.LanguagePreference);
+
+    }
+
+    private bool IsFrenchURL(string url)
+    {
+        bool isFrench = false;
+        if (url != null)
+        {
+            int length = url.Length;
+            int startIndexOfFR = length - 2;
+
+
+            var lastTwoLetters = url.Substring(startIndexOfFR, 2);
+            if (lastTwoLetters == "fr")
+            {
+                isFrench = true;
+            }
+        }
+
+        return isFrench;
+    }
+
+
+
+    void HandleFileSelected(IFileListEntry[] files)
     {
 
         selectedFiles = files;
@@ -98,11 +166,11 @@
         StateHasChanged();
 
         // Upload the file to the root directory
-        var result = await azureBlobService.UploadMultipleFilesAsync(files);
+        //var result = await azureBlobService.UploadMultipleFilesAsync(files);
 
-        loading = false;
+        //loading = false;
 
-        fileUploaded = result.Count == files.Length ? FileUploaded.SUCCESS : FileUploaded.FAIL;
+        //fileUploaded = result.Count == files.Length ? FileUploaded.SUCCESS : FileUploaded.FAIL;
 
         StateHasChanged();
 

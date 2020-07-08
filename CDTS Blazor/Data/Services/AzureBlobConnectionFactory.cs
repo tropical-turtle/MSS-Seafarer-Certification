@@ -24,7 +24,7 @@ namespace CDNApplication.Data.Services
         {
             if (azureKeyVaultService != null)
             {
-                this.connectionString = azureKeyVaultService.GetSecretByName("BlobStorage");
+                 this.connectionString = azureKeyVaultService.GetSecretByName("BlobStorage");
             }
         }
 

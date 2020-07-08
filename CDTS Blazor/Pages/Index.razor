@@ -1,16 +1,128 @@
-﻿@page "/"
+﻿@inject CDNApplication.Data.Services.UserPreference userPreference
+@inject ILanguageContainerService languageContainer
+@inject NavigationManager navigationManager
+@inject IJSRuntime JSRuntime
 
-<h1>APPLICATION FOR CANDIDATE DOCUMENT NUMBER (CDN)</h1>
+@page "/"
+@page "/en"
+@page "/fr"
 
-<div class="alert alert-info">
-    <p>
-        The personal information provided on this form is collected under the authority of Section 16 of the <b><i>Canada Shipping Act,2001</i></b>.
-        This information is required for a Seafarer to obtain a Candidate Document Number (CDN).
-        The information is then used to issue a Canadian Maritime Document and other marine documents in order to comply with the <b><i>Act</i></b> and the <b><i>Marine Personnel Regulations</i></b>.
-        The information collected is described in personal information bank entitled Seafarers' Certificates and Documents (TC PPU 030).
-        Under the provisions of the <b><i>Privacy Act</i></b>, individuals have the right of access to, correction of and protection of their personal information.
-        Instructions for obtaining your personal information are provided in <a href="https://www.tc.gc.ca/eng/corporate-services/atip-infosource-934.htm">Info Source</a>.
-    </p>
-</div>
+<h1>@languageContainer.Keys["ApplicationName"]</h1>
+@if (CurrentLanguage == "English")
+{
+    <div class="alert alert-info">
+        <p>
+            The personal information provided on this form is collected under the authority of Section 16 of the <b><i>Canada Shipping Act,2001</i></b>.
+            This information is required for a Seafarer to obtain a Candidate Document Number (CDN).
+            The information is then used to issue a Canadian Maritime Document and other marine documents in order to comply with the <b><i>Act</i></b> and the <b><i>Marine Personnel Regulations</i></b>.
+            The information collected is described in personal information bank entitled Seafarers' Certificates and Documents (TC PPU 030).
+            Under the provisions of the <b><i>Privacy Act</i></b>, individuals have the right of access to, correction of and protection of their personal information.
+            Instructions for obtaining your personal information are provided in <a href="https://www.tc.gc.ca/eng/corporate-services/atip-infosource-934.htm">Info Source</a>.
+        </p>
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        <p>
+            Les renseignements personnels fournis sur ce formulaire sont recueillis en vertu de l'article 16 de la <b><i> Loi de 2001 sur la marine marchande du Canada</i></b>.
+            Ces informations sont nécessaires pour qu'un marin obtienne un numéro de document du candidat (CDN).
+            L'information est ensuite utilisée pour émettre un document maritime canadien et d'autres documents maritimes afin de se conformer à la Loi et au Règlement sur le personnel maritime.
+            Les informations recueillies sont décrites dans le fichier de renseignements personnels intitulé Certificats et documents des gens de mer (TC PPU 030).
+            En vertu des dispositions de la Loi sur la protection des renseignements personnels, les particuliers ont le droit d'accéder à leurs renseignements personnels, de les corriger et de les protéger.
+            Les instructions pour obtenir vos informations personnelles sont fournies dans <a href="https://www.tc.gc.ca/fra/services-generaux/aiprp-infosource-934.htm">Info Source.</a>
+        </p>
+    </div>
+}
 
-<a class="btn btn-primary" href="/cdnform" role="button">Next</a>
+
+<a class="btn btn-primary" href=@NextUrl role="button">@languageContainer.Keys["Next"]</a>
+
+@code {
+
+
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public string CurrentLanguage { get; set; } = "English";
+
+    [Parameter]
+    public string NextUrl { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        var current_url = navigationManager.Uri;
+
+        if (IsFrenchURL(current_url))
+        {
+            CurrentLanguage = "French";
+            userPreference.LanguagePreference = "French";
+            userPreference.Culture = "fr-CA";
+
+            languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("fr-CA"));
+            NextUrl = "/cdnform/fr";
+
+        }
+        else
+        {
+            CurrentLanguage = "English";
+            userPreference.LanguagePreference = "English";
+            userPreference.Culture = "en-CA";
+            languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-CA"));
+            NextUrl = "/cdnform/en";
+        }
+
+        JSRuntime.InvokeVoidAsync("ChangeLanguageLinkText", userPreference.LanguagePreference);
+
+
+
+
+    }
+
+
+    [JSInvokable]
+    public static Task<string> SwitchLanguage(string currentLanguage)
+    {
+        return Task.FromResult("Hello Some Text is in here");
+    }
+
+    [JSInvokable]
+    public Task<string> SwitchLanguage2(string currentLanguage)
+    {
+
+        if (currentLanguage == "English")
+        {
+            Text = "French";
+            //userPreference.LanguagePreference = "French";
+        }
+        else
+        {
+            Text = "English";
+            //userPreference.LanguagePreference = "English";
+        }
+
+        this.StateHasChanged();
+        return Task.FromResult("This is a test");
+    }
+
+    private bool IsFrenchURL(string url)
+    {
+        bool isFrench = false;
+        if (url != null)
+        {
+            int length = url.Length;
+            int startIndexOfFR = length - 2;
+
+
+            var lastTwoLetters = url.Substring(startIndexOfFR, 2);
+            if (lastTwoLetters == "fr")
+            {
+                isFrench = true;
+            }
+        }
+
+        return isFrench;
+    }
+}

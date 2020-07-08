@@ -1,6 +1,10 @@
 namespace CDNApplication
 {
+    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.Reflection;
+    using AKSoftware.Localization.MultiLanguages;
     using CDNApplication.Data.Services;
     using CDNApplication.Middleware;
     using GoC.WebTemplate.Components.Core.Services;
@@ -40,8 +44,22 @@ namespace CDNApplication
             services.AddSingleton(new AzureKeyVaultService("https://kv-seafarer-dev.vault.azure.net/"));
             services.AddTransient<IAzureBlobConnectionFactory, AzureBlobConnectionFactory>();
             services.AddScoped<IAzureBlobService, AzureBlobService>();
+            services.AddSingleton<UserPreference>();
             services.AddModelAccessor();
             services.ConfigureGoCTemplateRequestLocalization(); // if GoC.WebTemplate-Components.Core (in NuGet) >= v2.1.1
+
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+            var supportedCultures = new List<CultureInfo> { new CultureInfo("en-CA"), new CultureInfo("fr-CA") };
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-CA");
+                options.SupportedUICultures = supportedCultures;
+                options.SupportedCultures = supportedCultures;
+                options.RequestCultureProviders.Clear();
+                options.RequestCultureProviders.Add(new CustomRequestCultureProvider());
+            });
+
+            services.AddLangaugeContainer(Assembly.GetExecutingAssembly(), System.Globalization.CultureInfo.GetCultureInfo("en-CA"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

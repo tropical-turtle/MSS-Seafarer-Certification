@@ -1,0 +1,32 @@
+ApplicationName: DEMANDE DE NUMÉRO DE DOCUMENT CANDIDAT (CDN)
+PrivacyActDisclaimer: Avertissement en matière de protection des renseignements personnels
+Next: prochain
+ApplicantDetails: Détails du demandeur
+MailingAddress: Adresse postale
+IdentityDocuments: Documents d’identité
+RemarksAndSignature: Remarques et signature
+Surname: Nom
+Givennames: Prénom(s)
+Initials: Initiales
+DateOfBirth: Date de naissance (dd-mm-aaaa)
+Nationality: Nationalité
+Cancel: Annuler
+ApartmentUnitNumber: Apartment/Numéro d’unité
+StreetNumber: Numéro de rue
+Street: Rue
+P_O_Box: Boîte postale
+City: Ville
+Province: Province
+PostalCode: Postal Code
+Country: Pays
+TelephoneNumber: Numéro de téléphone
+Email: Courrier électronique
+UploadDocuments: Télécharger des documents
+UploadedFilesSuccessfully: Fichiers téléchargés avec succès
+UploadWasUnsucessful: Le téléchargement n’a pas été réussi
+UploadedOneFileSuccessfully: Téléchargé 1 fichier avec succès
+Submit: Envoyer
+APPLICANT_DETAILS: DÉTAILS DU DEMANDEUR
+MAILING_ADDRESS: ADRESSE POSTALE
+IDENTITY_DOCUMENTS: DOCUMENTS D'IDENTITÉ
+REMARKS_AND_SIGNATURE: REMARQUES ET SIGNATURE

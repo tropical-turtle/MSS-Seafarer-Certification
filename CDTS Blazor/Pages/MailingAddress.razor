@@ -1,77 +1,189 @@
-﻿@page "/mailingaddress"
+﻿@inject ILanguageContainerService languageContainer
+@inject CDNApplication.Data.Services.UserPreference userPreference
+@inject NavigationManager navigationManager
+@inject IJSRuntime JSRuntime
+
+@page "/mailingaddress/en"
+@page "/mailingaddress/fr"
+
 @using Data.Resources
+@using System.Threading
+@using System.ComponentModel.DataAnnotations
+@using CDNApplication.TCComponents
 
 <nav aria-label="progress" class="step-indicator">
     <ul class="steps">
         <li class="complete">
-            <a href="/cdnform">@labels_en.CDNApplicationProgressApplicantDetails</a><span class="sr-only">completed</span>
+            <a href="/cdnform">@languageContainer.Keys["APPLICANT_DETAILS"]</a><span class="sr-only">completed</span>
         </li>
         <li class="active" aria-current="true">
-            @labels_en.CDNApplicationProgressMailingAddress
+            @languageContainer.Keys["MAILING_ADDRESS"]
         </li>
         <li>
-            @labels_en.CDNApplicationProgressIdentityDocuments<span class="sr-only">not completed</span>
+            @languageContainer.Keys["IDENTITY_DOCUMENTS"]<span class="sr-only">not completed</span>
         </li>
         <li>
-            @labels_en.CDNApplicationProgressSignature<span class="sr-only">not completed</span>
+            @languageContainer.Keys["REMARKS_AND_SIGNATURE"]<span class="sr-only">not completed</span>
         </li>
     </ul>
 </nav>
 
 <br />
 
-<div class="wb-frmvld">
-    <form role="form" method="get" action="/identitydocuments">
+@*below div tag is modified from the original of <div class="wb-frmvld">  *@
+
+<div >
+    <form role="form" method="get" action=@NextUrl>
         <div class="form-group">
-            <label for="ApartmentUnitNumber">Aptartment/Unit Number</label>
+            <label for="ApartmentUnitNumber">@languageContainer.Keys["ApartmentUnitNumber"]</label>
             <input id="ApartmentUnitNumber" type="text" class="form-control" placeholder="Enter aptartment/unit number" />
         </div>
         <div class="form-group">
-            <label for="StreetNumber">Street Number</label>
+            <label for="StreetNumber">@languageContainer.Keys["StreetNumber"]</label>
             <input id="StreetNumber" type="text" class="form-control" placeholder="Enter street number" required="required" />
         </div>
         <div class="form-group">
-            <label for="Street">Street</label>
+            <label for="Street">@languageContainer.Keys["Street"]</label>
             <input id="Street" type="text" class="form-control" placeholder="Enter street" required="required" />
         </div>
         <div class="form-group">
-            <label for="POBox">P.O. Box</label>
+            <label for="POBox">@languageContainer.Keys["P_O_Box"]</label>
             <input id="POBox" type="text" class="form-control" placeholder="Enter P.O. Box" />
         </div>
         <div class="form-group">
-            <label for="City">City</label>
+            <label for="City">@languageContainer.Keys["City"]</label>
             <input id="City" type="text" class="form-control" placeholder="Enter city" required="required" />
         </div>
         <div class="form-group">
-            <label for="Province">Province</label>
+            <label for="Province">@languageContainer.Keys["Province"]</label>
             <input id="Province" type="text" class="form-control" placeholder="Enter province" required="required" />
         </div>
         <div class="form-group">
-            <label for="PostalCode">Postal Code</label>
+            <label for="PostalCode">@languageContainer.Keys["PostalCode"]</label>
             <input id="PostalCode" type="text" class="form-control" placeholder="Enter postal code" required="required" />
         </div>
         <div class="form-group">
-            <label for="Country">Country</label>
+            <label for="Country">@languageContainer.Keys["Country"]</label>
             <input id="Country" type="text" class="form-control" placeholder="Enter country" required="required" />
         </div>
         <div class="form-group">
-            <label for="Telephone">Telephone Number</label>
+            <label for="Telephone">@languageContainer.Keys["TelephoneNumber"]</label>
             <input id="Telephone" type="text" class="form-control" placeholder="Enter telephone number" />
         </div>
         <div class="form-group">
-            <label for="Email">E-mail</label>
+            <label for="Email">@languageContainer.Keys["Email"]</label>
             <input id="Email" type="email" class="form-control" placeholder="Enter e-mail address" />
         </div>
-        <button class="btn btn-primary" type="submit">Next</button>
-        <a class="btn btn-secondary" href="/" role="button">Cancel</a>
+        <button class="btn btn-primary" type="submit">@languageContainer.Keys["Next"]</button>
+        <a class="btn btn-secondary" href="/" role="button">@languageContainer.Keys["Cancel"]</a>
     </form>
 </div>
 
 @code {
-    //private Address mailingAddress = new Address();
+    [Parameter]
+    public string NextUrl { get; set; } = "/identitydocuments/en";
 
-    //private void HandleValidSubmit()
-    //{
-    //    Console.WriteLine("OnValidSubmit");
-    //}
+
+    public string Sometext { get; set; }
+    protected override void OnInitialized()
+    {
+        var current_url = navigationManager.Uri;
+
+        if (IsFrenchURL(current_url))
+        {
+            if (Thread.CurrentThread.CurrentCulture.Name != "fr-CA")
+            {
+                languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("fr-CA"));
+            }
+
+            userPreference.LanguagePreference = "French";
+            NextUrl = "/identitydocuments/fr";
+        }
+        else
+        {
+            if (Thread.CurrentThread.CurrentCulture.Name != "en-CA")
+            {
+                languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-CA"));
+            }
+
+            userPreference.LanguagePreference = "English";
+            NextUrl = "/identitydocuments/en";
+        }
+
+
+        JSRuntime.InvokeVoidAsync("ChangeLanguageLinkText", userPreference.LanguagePreference);
+
+
+
+    }
+
+
+
+    private TombstoneInformation tombstoneInformation = new TombstoneInformation();
+
+    private Address address = new Address();
+
+    private bool IsFrenchURL(string url)
+    {
+        bool isFrench = false;
+        if (url != null)
+        {
+            int length = url.Length;
+            int startIndexOfFR = length - 2;
+
+
+            var lastTwoLetters = url.Substring(startIndexOfFR, 2);
+            if (lastTwoLetters == "fr")
+            {
+                isFrench = true;
+            }
+        }
+
+        return isFrench;
+    }
+
+    public class Address
+    {
+        [Required]
+        public string City { get; set; }
+        public Address()
+        {
+        }
+
+
+
+
+        //[Required]
+        //[Display(Name = "Language")]
+        //public CorrespondenceLanguage LanguagePreference { get; set; }
+    }
+
+    public class TombstoneInformation
+    {
+        public TombstoneInformation()
+        {
+            this.DateOfBirth = DateTime.Now.ToString("dd-MM-yyyy");
+        }
+
+        [Required]
+        public string Surname { get; set; }
+
+        [Required]
+        [Display(Name = "Given Name(s)")]
+        public string GivenName { get; set; }
+
+        [Required]
+        public string Initials { get; set; }
+
+        [Required]
+        [Display(Name = "Date of Birth")]
+        public string DateOfBirth { get; set; }
+
+        [Required]
+        public string Nationality { get; set; }
+
+        //[Required]
+        //[Display(Name = "Language")]
+        //public CorrespondenceLanguage LanguagePreference { get; set; }
+    }
 }

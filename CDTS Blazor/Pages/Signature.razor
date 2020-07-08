@@ -1,28 +1,89 @@
-﻿@page "/signature"
+﻿@inject ILanguageContainerService languageContainer
+@inject CDNApplication.Data.Services.UserPreference userPreference
+@inject NavigationManager navigationManager
+@inject IJSRuntime JSRuntime
+
+
+@page "/signature/en"
+@page "/signature/fr"
+
 @using Data.Resources
+@using System.Threading
 
 <nav aria-label="progress" class="step-indicator">
     <ul class="steps">
         <li class="complete">
-            <a href="/cdnform">@labels_en.CDNApplicationProgressApplicantDetails</a><span class="sr-only">completed</span>
+            <a href="/cdnform">@languageContainer.Keys["APPLICANT_DETAILS"]</a><span class="sr-only">completed</span>
         </li>
         <li class="complete">
-            <a href="/mailingaddress">@labels_en.CDNApplicationProgressMailingAddress</a><span class="sr-only">completed</span>
+            <a href="/mailingaddress">@languageContainer.Keys["MAILING_ADDRESS"]</a><span class="sr-only">completed</span>
         </li>
         <li class="complete">
-            <a href="/identitydocuments">@labels_en.CDNApplicationProgressIdentityDocuments</a><span class="sr-only">completed</span>
+            <a href="/identitydocuments">@languageContainer.Keys["IDENTITY_DOCUMENTS"]</a><span class="sr-only">completed</span>
         </li>
         <li class="active" aria-current="true">
-            @labels_en.CDNApplicationProgressSignature
+            @languageContainer.Keys["REMARKS_AND_SIGNATURE"]
         </li>
     </ul>
 </nav>
 
 <br />
 
-<a class="btn btn-primary" href="/" role="button">Submit</a>
-<a class="btn btn-secondary" href="/" role="button">Cancel</a>
+<a class="btn btn-primary" href=@NextUrl role="button">@languageContainer.Keys["Submit"]</a>
+<a class="btn btn-secondary" href=@NextUrl role="button">@languageContainer.Keys["Cancel"]</a>
 
 @code {
+
+    [Parameter]
+    public string NextUrl { get; set; } = "/identitydocuments/en";
+
+    protected override void OnInitialized()
+    {
+        var current_url = navigationManager.Uri;
+
+        if (IsFrenchURL(current_url))
+        {
+            //if (Thread.CurrentThread.CurrentCulture.Name != "fr-CA")
+            //{
+            //    languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("fr-CA"));
+            //}
+
+            // we can use the above commented logic if the user came from the previous page, if the user comes directly by typing sub URL /signature/fr we need to set the language like the following
+            languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("fr-CA"));
+            userPreference.LanguagePreference = "French";
+            NextUrl = "/fr";
+        }
+        else
+        {
+
+            languageContainer.SetLanguage(System.Globalization.CultureInfo.GetCultureInfo("en-CA"));
+            userPreference.LanguagePreference = "English";
+            NextUrl = "/en";
+        }
+
+
+        JSRuntime.InvokeVoidAsync("ChangeLanguageLinkText", userPreference.LanguagePreference);
+
+    }
+
+    private bool IsFrenchURL(string url)
+    {
+        bool isFrench = false;
+        if (url != null)
+        {
+            int length = url.Length;
+            int startIndexOfFR = length - 2;
+
+
+            var lastTwoLetters = url.Substring(startIndexOfFR, 2);
+            if (lastTwoLetters == "fr")
+            {
+                isFrench = true;
+            }
+        }
+
+        return isFrench;
+    }
+
 
 }

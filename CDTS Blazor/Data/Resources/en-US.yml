@@ -1,0 +1,30 @@
+﻿ApplicationName: APPLICATION FOR CANDIDATE DOCUMENT NUMBER (CDN)
+PrivacyActDisclaimer: Privacy Act Disclaimer
+Next: Next
+ApplicantDetails: Applicant Details
+MailingAddress: Mailing Address
+IdentityDocuments: Identity Documents
+RemarksAndSignature: Remarks and Signature
+Surname: Surname
+Givennames: Givenname(s)
+Initials: Initials
+DateOfBirth: Date of Birth
+Nationality: Nationality
+Cancel: Cancel
+AptartmentUnitNumber: Aptartment/Unit Number
+StreetNumber: Street Number
+Street: Street
+P_O_Box: P.O. Box
+City: City
+Province: Province
+PostalCode: Postal Code
+Country: Country
+TelephoneNumber: Telephone Number
+Email: E-mail
+UploadDocuments: Upload Documents
+UploadedFilesSuccessfully: Uploaded files successfully
+UploadWasUnsucessful: Upload was unsucessful
+UploadedOneFileSuccessfully: Uploaded 1 file successfully
+Submit: Submit
+
+

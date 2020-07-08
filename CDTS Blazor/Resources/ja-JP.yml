@@ -1,0 +1,28 @@
+ApplicationName: 候補ドキュメント番号 (CDN) の申請
+PrivacyActDisclaimer: プライバシー法の免責事項
+Next: 次に
+ApplicantDetails: 応募者詳細
+MailingAddress: 住所
+IdentityDocuments: 身分証明書
+RemarksAndSignature: 注釈と署名
+Surname: 姓
+Givennames: 与えられた名前
+Initials: イニシャル
+DateOfBirth: 生年月日
+Nationality: 国籍
+Cancel: キャンセル
+AptartmentUnitNumber: アプタルトメント/ユニット番号
+StreetNumber: ストリート番号
+Street: 通り
+P_O_Box: P.O. ボックス
+City: 都市
+Province: 州
+PostalCode: 郵便番号
+Country: 国
+TelephoneNumber: 電話番号
+Email: 電子メール
+UploadDocuments: ドキュメントのアップロード
+UploadedFilesSuccessfully: 正常にアップロードされたファイル
+UploadWasUnsucessful: アップロードは絶え間なく行われました
+UploadedOneFileSuccessfully: 1 ファイルが正常にアップロードされました
+Submit: 送信
