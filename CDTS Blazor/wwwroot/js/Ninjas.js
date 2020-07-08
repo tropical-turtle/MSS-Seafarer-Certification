@@ -1,7 +1,7 @@
 
 function SetElementTextById(id, text)
 {
-    alert("This is when calling SetElementTextById ");
+    //alert("This is when calling SetElementTextById ");
     document.getElementById(id).innerHTML = text;
 
 }
@@ -73,5 +73,4 @@ function GetLastTwoLetters(url)
     var index = url.length - 2;
     var twoLetters = url.substr(index, 2);
     return twoLetters;
-
 }
